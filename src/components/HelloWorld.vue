@@ -95,7 +95,7 @@
           href="https://github.com/vuejs/awesome-vue"
           target="_blank"
           rel="noopener"
-          >awesome-vue test</a
+          >awesome-vue</a
         >
       </li>
     </ul>
