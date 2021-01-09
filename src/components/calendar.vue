@@ -4,16 +4,17 @@
       <v-sheet height="1000">
         <v-calendar
           ref="calendar"
-          :weekdays="weekday"
           type="week"
-          :events="events"
+          interval-height="25"
           first-time="06:30"
           interval-minutes="30"
           interval-count="34"
-          :short-intervals="shortIntervals"
           start="2020-06-01"
-          :event-overlap-mode="mode"
           event-overlap-threshold="15"
+          :weekdays="weekday"
+          :events="events"
+          :short-intervals="shortIntervals"
+          :event-overlap-mode="mode"
           :event-color="getEventColor"
           @click:event="showEvent"
           @click:more="viewDay"
@@ -27,11 +28,11 @@
           :activator="selectedElement"
           offset-x
         >
-          <v-card class="mx-auto" max-width="400" outlined>
+          <v-card class="mx-auto" max-width="300" outlined>
             <v-toolbar :color="selectedEvent.color" dark>
               <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
               <v-spacer></v-spacer>
-              <v-btn icon @click="selectedOpen = false">
+              <v-btn icon @click="deleteEvent(selectedEvent)">
                 <v-icon>mdi-delete</v-icon>
               </v-btn>
               <v-btn icon @click="selectedOpen = false">
@@ -89,6 +90,15 @@ export default {
         timed: true,
         details:
           "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+      },
+      {
+        color: "red",
+        name: "CALCULO",
+        start: new Date("2020-06-03 11:30:00"),
+        end: new Date("2020-06-03 12:30:00"),
+        timed: true,
+        details:
+          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
       }
     ],
     colors: [
@@ -112,6 +122,12 @@ export default {
     getEventColor(event) {
       return event.color;
     },
+    deleteEvent(event) {
+      this.selectedOpen = false;
+      let i = this.events.indexOf(event);
+      this.events.splice(i, 1);
+      console.log("Deleted event from calendar");
+    },
     showEvent({ nativeEvent, event }) {
       const open = () => {
         this.selectedEvent = event;
@@ -127,7 +143,6 @@ export default {
       } else {
         open();
       }
-
       nativeEvent.stopPropagation();
     }
   }
