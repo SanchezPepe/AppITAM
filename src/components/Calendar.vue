@@ -28,33 +28,33 @@
           :activator="selectedElement"
           offset-x
         >
-          <v-card class="mx-auto" max-width="300" outlined>
-            <v-toolbar :color="selectedEvent.color" dark>
-              <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
-              <v-spacer></v-spacer>
-              <v-btn icon @click="deleteEvent(selectedEvent)">
-                <v-icon>mdi-delete</v-icon>
-              </v-btn>
-              <v-btn icon @click="selectedOpen = false">
-                <v-icon>mdi-close-box</v-icon>
-              </v-btn>
-            </v-toolbar>
+          <v-card
+            class="mx-auto"
+            max-width="300"
+            outlined
+            :color="selectedEvent.color"
+          >
             <v-list-item three-line>
               <v-list-item-content>
                 <div class="overline mb-1">
                   COM-23131
                 </div>
                 <v-list-item-title class="headline mb-1">
-                  Headline 5
+                  <span v-html="selectedEvent.name"></span>
                 </v-list-item-title>
                 <v-list-item-subtitle
                   >Greyhound divisely hello coldly fonwderfully
                 </v-list-item-subtitle>
-                <v-card-text>
-                  <span v-html="selectedEvent.details"></span>
-                </v-card-text>
               </v-list-item-content>
             </v-list-item>
+            <v-card-actions>
+              <v-btn icon @click="deleteEvent(selectedEvent)">
+                <v-icon>mdi-delete</v-icon>
+              </v-btn>
+              <v-btn icon @click="selectedOpen = false">
+                <v-icon>mdi-close-box</v-icon>
+              </v-btn>
+            </v-card-actions>
           </v-card>
         </v-menu>
       </v-sheet>

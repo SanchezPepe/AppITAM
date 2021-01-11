@@ -36,7 +36,7 @@
     <v-main>
       <!-- <router-link to="/">Home</router-link> |
       <router-link to="/calendar">About</router-link> -->
-      <Calendar/>
+      <ScheduleCreator />
       <HelloWorld />
     </v-main>
   </v-app>
@@ -44,15 +44,14 @@
 
 <script>
 import HelloWorld from "./components/HelloWorld";
-import Calendar from "./components/calendar";
-
+import ScheduleCreator from "./components/ScheduleCreator.vue";
 
 export default {
   name: "App",
 
   components: {
-    HelloWorld, 
-    Calendar
+    HelloWorld,
+    ScheduleCreator
   },
 
   data: () => ({
