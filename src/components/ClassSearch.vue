@@ -60,20 +60,23 @@
         <!-- TAB BODY -->
         <v-tabs-items v-model="tab">
           <v-tab-item v-for="(selected, s) in values" :key="s">
-            <v-container>
-              <h2>HORARIOS DISPONIBLES PARA - {{ values[s] }}</h2>
-              <hr>
-              <div
-                v-for="groupNumber in Object.keys(courses[selected])"
-                :key="groupNumber"
-              >
-                <GroupCard
-                  :id="groupNumber"
-                  :group="courses[selected][groupNumber]"
-                />
-                <hr />
-              </div>
-            </v-container>
+            <v-item-group>
+              <v-container>
+                <v-row no-gutters>
+                  <v-col
+                    v-for="groupNumber in Object.keys(courses[selected])"
+                    :key="groupNumber"
+                    cols="12"
+                    sm="3"
+                  >
+                    <GroupCard
+                      :id="groupNumber"
+                      :group="courses[selected][groupNumber]"
+                    />
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-item-group>
           </v-tab-item>
         </v-tabs-items>
       </v-card>
@@ -89,7 +92,10 @@ export default {
   data: () => ({
     courses: null,
     items: [],
-    values: ["SDI-13782 DISEÑO Y ARQUITECT. DE REDES"],
+    values: [
+      "SDI-13782 DISEÑO Y ARQUITECT. DE REDES",
+      "EGN-17122 IDEAS E INST. POL. Y SOC. II"
+    ],
     dialog: true,
     tab: null,
     error: false
