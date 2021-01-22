@@ -1,8 +1,7 @@
 <template>
   <div>
-    <div v-for="lecture in group" :key="lecture">
-      {{ groups }}
-      <p>{{ id }}</p>
+    <h2>Grupo: {{ id }}</h2>
+    <div v-for="lecture in group" :key="lecture.teacher">
       <p>Tipo: {{ lecture.type }}</p>
       <p>Profesor: {{ lecture.teacher }}</p>
       <p>Créditos: {{ lecture.credits }}</p>
@@ -18,8 +17,8 @@
 export default {
   data: () => ({}),
   props: {
-    group: Object,
-    id: Number
+    group: Array,
+    id: String
   }
 };
 </script>
