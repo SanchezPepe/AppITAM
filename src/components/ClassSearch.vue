@@ -59,11 +59,14 @@
 
         <!-- TAB BODY -->
         <v-tabs-items v-model="tab">
-          <v-tab-item v-for="course in values" :key="course">
+          <v-tab-item v-for="(selected, s) in values" :key="s">
             <v-container>
-              <h2>HORARIOS DISPONIBLES PARA - {{ course }}</h2>
-              <div v-for="group in courses[course]" :key="group">
-                <GroupCard :groups="group" />
+              <h2>HORARIOS DISPONIBLES PARA - {{ values[s] }}</h2>
+              <div
+                v-for="groupNumber in Object.keys(courses[selected])"
+                :key="groupNumber"
+              >
+                <GroupCard :id="groupNumber" :group="courses[selected][groupNumber]" />
                 <hr />
               </div>
             </v-container>
