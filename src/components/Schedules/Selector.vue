@@ -36,14 +36,7 @@
           <v-toolbar-title>Seleccionar horarios</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
-            <v-btn
-              dark
-              text
-              @click="
-                dialog = false;
-                emitSelectedCourses();
-              "
-            >
+            <v-btn dark text @click="emitCourses()">
               Agregar cursos
             </v-btn>
             <v-btn dark text @click="dialog = false">
@@ -94,23 +87,25 @@
 </template>
 
 <script>
-import axios from "axios";
 import GroupCard from "./GroupCard";
 
 export default {
   data: () => ({
-    courses: null,
     items: [],
     values: [
       "SDI-13782 DISEÑO Y ARQUITECT. DE REDES",
       "EGN-17122 IDEAS E INST. POL. Y SOC. II"
     ],
-    dialog: true,
+    selectedGroups: {},
+    dialog: false,
     tab: null,
     error: false
   }),
-  mounted() {
-    this.fetchCourses();
+  props: {
+    courses: Object
+  },
+  beforeMount() {
+    this.items = Object.keys(this.courses);
   },
   methods: {
     addCourses() {
@@ -119,35 +114,16 @@ export default {
       } else {
         this.error = false;
         this.dialog = true;
-        this.getSchedules();
       }
-    },
-    getSchedules() {
-      this.values.forEach(val => {
-        this.tableRows.push(Object.entries(this.courses[val]));
-        console.log(this.tableRows);
-      });
     },
     reset() {
       this.values = [];
     },
-    fetchCourses() {
-      axios
-        .get(
-          "http://localhost:8080/v0/b/appitam.appspot.com/o/courses.json?alt=media&token=fdf0432b-6e77-4bc6-b09e-5235f55f4520"
-        )
-        .then(
-          response => (
-            (this.courses = response.data),
-            console.log("SUCCESS GETTING COURSES"),
-            // Fills the input
-            (this.items = Object.keys(this.courses))
-          )
-        )
-        .catch(error => console.warn(error));
-    },
     onGroupClicked(group) {
-      console.log(group);
+      this.selectedGroups[group[0]] = group[1];
+    },
+    emitCourses() {
+      this.$emit("clicked", this.selectedGroups);
     }
   },
   components: {
