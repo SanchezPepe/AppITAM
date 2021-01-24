@@ -18,8 +18,8 @@
         Ver horarios
       </v-btn>
 
-      <v-btn color="error" class="mr-4" @click="reset">
-        Reset Form
+      <v-btn color="warning" class="mr-4" @click="resetCal">
+        Reiniciar calendario
       </v-btn>
 
       <!-- POP UP DIALOG FOR ADDING COURSES -->
@@ -96,13 +96,10 @@ import Calendar from "./Calendar.vue";
 export default {
   data: () => ({
     items: [],
-    values: [
-      "SDI-13782 DISEÑO Y ARQUITECT. DE REDES",
-      "EGN-17122 IDEAS E INST. POL. Y SOC. II"
-    ],
+    values: [],
     selectedGroups: {},
     lectures: [],
-    dialog: true,
+    dialog: false,
     tab: null,
     error: false,
     colors: [
@@ -134,8 +131,10 @@ export default {
         this.dialog = true;
       }
     },
-    reset() {
+    resetCal() {
       this.values = [];
+      this.lectures = [];
+      this.selectedGroups = {};
     },
     onGroupClicked(group) {
       let courseName = group[0];
