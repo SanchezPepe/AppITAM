@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import Calendar from "./Calendar";
-import ClassSearch from "./ClassSearch";
+import Calendar from "../components/Schedules/Calendar.vue";
+import ClassSearch from "../components/Schedules/ClassSearch.vue";
 
 export default {
   data: () => ({}),

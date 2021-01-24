@@ -4,7 +4,10 @@
       outlined
       :color="active ? 'teal' : ''"
       class="align-center"
-      @click="toggle"
+      @click="
+        toggle();
+        emitData();
+      "
     >
       <v-card-text v-for="lecture in group" :key="lecture.teacher">
         <h2>{{ lecture.teacher }}</h2>
@@ -15,6 +18,9 @@
           <template v-slot:default>
             <thead>
               <tr>
+                <th v-if="group.length > 1" class="text-left">
+                  Tipo
+                </th>
                 <th class="text-left">
                   Días
                 </th>
@@ -28,6 +34,7 @@
             </thead>
             <tbody>
               <tr>
+                <td v-if="group.length > 1">{{ lecture.type }}</td>
                 <td>
                   <div
                     v-for="day in lecture.days"
@@ -45,6 +52,9 @@
             </tbody>
           </template>
         </v-simple-table>
+        <h4 v-if="lecture.comments !== ''" class="mt-3">
+          Comentarios: {{ lecture.comments }}
+        </h4>
       </v-card-text>
     </v-card>
   </v-item>
@@ -52,10 +62,20 @@
 
 <script>
 export default {
-  data: () => ({}),
+  data: () => ({
+    selected: false
+  }),
   props: {
     group: Array,
-    id: String
+    id: String,
+    course: String
+  },
+  methods: {
+    emitData() {
+      this.selected = !this.selected;
+      let dataToEmit = [this.course, this.id];
+      this.$emit("clicked", dataToEmit);
+    }
   }
 };
 </script>

@@ -36,7 +36,14 @@
           <v-toolbar-title>Seleccionar horarios</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
-            <v-btn dark text @click="dialog = false">
+            <v-btn
+              dark
+              text
+              @click="
+                dialog = false;
+                emitSelectedCourses();
+              "
+            >
               Agregar cursos
             </v-btn>
             <v-btn dark text @click="dialog = false">
@@ -61,7 +68,7 @@
         <v-tabs-items v-model="tab">
           <v-tab-item v-for="(selected, s) in values" :key="s">
             <v-item-group>
-              <v-container>
+              <v-container fluid>
                 <v-row no-gutters>
                   <v-col
                     v-for="groupNumber in Object.keys(courses[selected])"
@@ -72,6 +79,8 @@
                     <GroupCard
                       :id="groupNumber"
                       :group="courses[selected][groupNumber]"
+                      :course="selected"
+                      @clicked="onGroupClicked"
                     />
                   </v-col>
                 </v-row>
@@ -86,7 +95,7 @@
 
 <script>
 import axios from "axios";
-import GroupCard from "./groupCard";
+import GroupCard from "./GroupCard";
 
 export default {
   data: () => ({
@@ -136,6 +145,9 @@ export default {
           )
         )
         .catch(error => console.warn(error));
+    },
+    onGroupClicked(group) {
+      console.log(group);
     }
   },
   components: {

@@ -10,47 +10,24 @@
           transition="scale-transition"
           width="40"
         />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
       </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
     </v-app-bar>
 
     <v-main>
       <!-- <router-link to="/">Home</router-link> |
       <router-link to="/calendar">About</router-link> -->
       <ScheduleCreator />
-      <HelloWorld />
     </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
-import ScheduleCreator from "./components/ScheduleCreator.vue";
+import ScheduleCreator from "./views/ScheduleCreator.vue";
 
 export default {
   name: "App",
 
   components: {
-    HelloWorld,
     ScheduleCreator
   },
 
