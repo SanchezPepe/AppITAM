@@ -62,9 +62,7 @@
 
 <script>
 export default {
-  data: () => ({
-    selected: false
-  }),
+  data: () => ({}),
   props: {
     group: Array,
     id: String,
@@ -72,7 +70,6 @@ export default {
   },
   methods: {
     emitData() {
-      this.selected = !this.selected;
       let dataToEmit = [this.course, this.id];
       this.$emit("clicked", dataToEmit);
     }

@@ -2,22 +2,20 @@
   <v-card>
     <v-container>
       <Selector v-if="courses != null" :courses="courses" />
-      <Calendar />
     </v-container>
   </v-card>
 </template>
 
 <script>
 import axios from "axios";
-import Calendar from "../components/Schedules/Calendar.vue";
 import Selector from "../components/Schedules/Selector.vue";
 
 export default {
   data: () => ({
-    courses: null
+    courses: null,
+    selectedGroups: null
   }),
   components: {
-    Calendar,
     Selector
   },
   beforeCreate() {
