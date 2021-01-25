@@ -2,37 +2,11 @@
   <v-card>
     <v-container>
       <v-tabs v-model="tab" background-color="transparent" color="basil" grow>
-        <v-tab>
-          Opción 1
-        </v-tab>
-        <v-tab>
-          Opción 2
-        </v-tab>
-        <v-tab>
-          Opción 3
-        </v-tab>
-        <v-tab>
-          Opción 4
-        </v-tab>
-        <v-tab>
-          Opción 5
-        </v-tab>
+        <v-tab v-for="n in 5" :key="n"> Opción {{ n }}</v-tab>
       </v-tabs>
 
       <v-tabs-items v-model="tab">
-        <v-tab-item>
-          <Selector v-if="courses != null" :courses="courses" />
-        </v-tab-item>
-        <v-tab-item>
-          <Selector v-if="courses != null" :courses="courses" />
-        </v-tab-item>
-        <v-tab-item>
-          <Selector v-if="courses != null" :courses="courses" />
-        </v-tab-item>
-        <v-tab-item>
-          <Selector v-if="courses != null" :courses="courses" />
-        </v-tab-item>
-        <v-tab-item>
+        <v-tab-item v-for="n in 5" :key="n">
           <Selector v-if="courses != null" :courses="courses" />
         </v-tab-item>
       </v-tabs-items>
