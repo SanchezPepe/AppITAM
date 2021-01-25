@@ -1,65 +1,56 @@
 <template>
-  <div>
-    <v-container>
-      <v-sheet height="1000">
-        <v-calendar
-          ref="calendar"
-          type="week"
-          interval-height="30"
-          first-time="06:30"
-          interval-minutes="30"
-          interval-count="34"
-          start="2020-06-01"
-          event-overlap-threshold="15"
-          :weekdays="weekday"
-          :events="events"
-          :short-intervals="shortIntervals"
-          :event-overlap-mode="mode"
-          :event-color="getEventColor"
-          @click:event="showEvent"
-          @click:more="viewDay"
-          @click:date="viewDay"
-        >
-        </v-calendar>
+  <v-container>
+    <v-sheet>
+      <v-calendar
+        ref="calendar"
+        type="week"
+        interval-height="30"
+        first-time="06:30"
+        interval-minutes="30"
+        interval-count="34"
+        start="2020-06-01"
+        event-overlap-threshold="15"
+        locale="es"
+        :weekdays="weekday"
+        :events="events"
+        :short-intervals="shortIntervals"
+        :event-overlap-mode="mode"
+        :event-color="getEventColor"
+        @click:event="showEvent"
+        @click:more="viewDay"
+        @click:date="viewDay"
+      >
+      </v-calendar>
 
-        <v-menu
-          v-model="selectedOpen"
-          :close-on-content-click="false"
-          :activator="selectedElement"
-          offset-x
-        >
-          <v-card
-            class="mx-auto"
-            max-width="300"
-            outlined
-            :color="selectedEvent.color"
-          >
-            <v-list-item three-line>
-              <v-list-item-content>
-                <div class="overline mb-1">
-                  {{ selectedEvent.name }}
-                </div>
-                <v-list-item-title class="headline mb-1">
-                  <span v-html="selectedEvent.name"></span>
-                </v-list-item-title>
-                <v-list-item-subtitle>
-                  {{ selectedEvent.details }}
-                </v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-            <v-card-actions>
-              <v-btn icon @click="deleteEvent(selectedEvent)">
-                <v-icon>mdi-delete</v-icon>
-              </v-btn>
-              <v-btn icon @click="selectedOpen = false">
-                <v-icon>mdi-close-box</v-icon>
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-menu>
-      </v-sheet>
-    </v-container>
-  </div>
+      <v-menu
+        v-model="selectedOpen"
+        :close-on-content-click="false"
+        :activator="selectedElement"
+        offset-x
+      >
+        <v-card color="grey lighten-4" min-width="350px" flat>
+          <v-toolbar :color="selectedEvent.color" dark>
+            <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
+            <v-spacer></v-spacer>
+
+            <v-btn icon @click="deleteEvent(selectedEvent)">
+              <v-icon>mdi-delete</v-icon>
+            </v-btn>
+            <v-btn icon @click="selectedOpen = false">
+              <v-icon>mdi-close-box</v-icon>
+            </v-btn>
+          </v-toolbar>
+          <v-card-text :color="selectedEvent.color">
+            <p class="font-weight-black subtitle-1">
+              {{ selectedEvent.teacher }}
+              <br />
+              {{ selectedEvent.classroom }} - {{ selectedEvent.campus }}
+            </p>
+          </v-card-text>
+        </v-card>
+      </v-menu>
+    </v-sheet>
+  </v-container>
 </template>
 
 <script>
@@ -113,3 +104,25 @@ export default {
   }
 };
 </script>
+
+<style>
+.v-calendar-daily_head-day-label {
+  display: none;
+}
+
+.v-calendar-daily__interval-text {
+  font-weight: bold;
+  font-size: 12px !important;
+  color: black !important;
+}
+
+.v-calendar-daily_head-weekday {
+  font-weight: bold;
+  font-size: 15px !important;
+  color: black !important;
+}
+
+.v-calendar-daily__scroll-area {
+  overflow-y: hidden !important;
+}
+</style>

@@ -158,8 +158,12 @@ export default {
               start: new Date("2020-06-" + dayNum + " " + el.time[0]),
               end: new Date("2020-06-" + dayNum + " " + el.time[1]),
               timed: true,
-              details: el.comments
+              details: el.comments,
+              teacher: el.teacher,
+              classroom: el.room,
+              campus: el.campus
             };
+            console.log(groupObj);
             this.lectures.push(newGroup);
           });
         });
