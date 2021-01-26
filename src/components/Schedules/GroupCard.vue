@@ -9,7 +9,10 @@
         emitData();
       "
     >
-      <v-card-text v-for="lecture in group" :key="lecture.teacher">
+      <v-card-text
+        v-for="lecture in group"
+        :key="lecture.teacher + lecture.days"
+      >
         <h2>{{ lecture.teacher }}</h2>
         <h3 class="mb-3">
           Grupo: {{ id }} - {{ lecture.room }} - {{ lecture.campus }}
