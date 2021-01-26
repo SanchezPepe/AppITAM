@@ -109,17 +109,50 @@ export default {
     tab: null,
     error: false,
     colors: [
-      "blue",
-      "red",
-      "indigo",
-      "pink",
-      "purple",
-      "teal",
-      "deep-purple",
-      "cyan",
-      "orange",
-      "lime",
-      "red-lighten-5"
+      "blue darken-1",
+      "blue darken-2",
+      "blue darken-3",
+      "blue darken-4",
+      "blue-grey darken-1",
+      "blue-grey darken-2",
+      "blue-grey darken-3",
+      "blue-grey darken-4",
+      "cyan darken-1",
+      "cyan darken-2",
+      "cyan darken-3",
+      "cyan darken-4",
+      "deep-orange darken-1",
+      "deep-orange darken-2",
+      "deep-orange darken-3",
+      "deep-orange darken-4",
+      "deep-purple darken-1",
+      "deep-purple darken-2",
+      "deep-purple darken-3",
+      "deep-purple darken-4",
+      "green darken-1",
+      "green darken-2",
+      "green darken-3",
+      "green darken-4",
+      "indigo darken-1",
+      "indigo darken-2",
+      "indigo darken-3",
+      "indigo darken-4",
+      "light-blue darken-1",
+      "light-blue darken-2",
+      "light-blue darken-3",
+      "light-blue darken-4",
+      "pink darken-1",
+      "pink darken-2",
+      "pink darken-3",
+      "pink darken-4",
+      "teal darken-1",
+      "teal darken-2",
+      "teal darken-3",
+      "teal darken-4",
+      "yellow darken-1",
+      "yellow darken-2",
+      "yellow darken-3",
+      "yellow darken-4"
     ]
   }),
   props: {
@@ -153,7 +186,9 @@ export default {
         let groupNumber = this.selectedGroups[courseKey];
         let groupObj = this.courses[courseKey][groupNumber];
         // For each group data in the selected group array
-        let eventColor = this.colors[Math.floor(Math.random() * 10)];
+        let eventColor = this.colors[
+          Math.floor(Math.random() * this.colors.length)
+        ];
         groupObj.forEach(el => {
           // For each day of class for each group
           el.days.forEach(day => {
