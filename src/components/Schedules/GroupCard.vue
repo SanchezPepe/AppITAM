@@ -2,7 +2,7 @@
   <v-item v-slot="{ active, toggle }">
     <v-card
       outlined
-      :color="active ? 'teal' : ''"
+      :color="active ? 'primary' : ''"
       class="align-center"
       @click="
         toggle();
@@ -44,7 +44,7 @@
                     :key="day"
                     class="text-center d-inline"
                   >
-                    <v-chip color="teal lighten-4" class="ma-1">{{
+                    <v-chip color="teal darken-3" class="ma-1 day-chip">{{
                       day
                     }}</v-chip>
                   </div>
@@ -80,4 +80,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.day-chip {
+  color: white !important;
+  font-weight: bold;
+}
+</style>

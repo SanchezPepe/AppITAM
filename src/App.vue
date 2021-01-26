@@ -1,16 +1,13 @@
 <template>
-  <v-app>
+  <v-app id="inspire">
+    <v-navigation-drawer v-model="drawer" app>
+      <!--  -->
+    </v-navigation-drawer>
+
     <v-app-bar app color="primary" dark>
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-      </div>
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+
+      <v-toolbar-title>App ITAM </v-toolbar-title>
     </v-app-bar>
 
     <v-main>
@@ -30,9 +27,6 @@ export default {
   components: {
     ScheduleCreator
   },
-
-  data: () => ({
-    //
-  })
+  data: () => ({ drawer: null })
 };
 </script>
