@@ -22,15 +22,23 @@ export default {
   data: () => ({
     courses: null,
     selectedGroups: null,
-    tab: null
+    tab: null,
+    dev: false
   }),
+  computed: {
+    connUrl: function() {
+      if (this.dev) return "http://localhost:8080/";
+      else return "https://firebasestorage.googleapis.com/";
+    }
+  },
   components: {
     Selector
   },
-  beforeCreate() {
+  mounted() {
     axios
       .get(
-        "http://localhost:8080/v0/b/appitam.appspot.com/o/courses.json?alt=media&token=fdf0432b-6e77-4bc6-b09e-5235f55f4520"
+        this.connUrl +
+          "v0/b/appitam.appspot.com/o/courses.json?alt=media&token=fdf0432b-6e77-4bc6-b09e-5235f55f4520"
       )
       .then(
         response => ((this.courses = response.data), console.log("Courses OK"))

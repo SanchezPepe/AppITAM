@@ -79,10 +79,18 @@ export default {
       return event.color;
     },
     deleteEvent(event) {
+      // Delete all the clases from a group
+      let name = event.name;
+      for (let i = this.events.length - 1; i >= 0; i--) {
+        let ev = this.events[i];
+        if (ev.name == name) {
+          let i = this.events.indexOf(ev);
+          this.events.splice(i, 1);
+          console.log("Deleted event from calendar", ev);
+        }
+      }
+      //this.events.splice(this.events.indexOf(event), 1)
       this.selectedOpen = false;
-      let i = this.events.indexOf(event);
-      this.events.splice(i, 1);
-      console.log("Deleted event from calendar");
     },
     showEvent({ nativeEvent, event }) {
       const open = () => {

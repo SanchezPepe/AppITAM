@@ -169,7 +169,6 @@ export default {
               classroom: el.room,
               campus: el.campus
             };
-            console.log(groupObj);
             this.lectures.push(newGroup);
           });
         });
