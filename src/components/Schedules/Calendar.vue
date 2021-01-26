@@ -30,7 +30,12 @@
       >
         <v-card color="grey lighten-4" min-width="350px" flat>
           <v-toolbar :color="selectedEvent.color" dark>
-            <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
+            <v-toolbar-title
+              v-if="selectedEvent.name != undefined"
+              v-html="
+                selectedEvent.name.substring(10, selectedEvent.name.length)
+              "
+            ></v-toolbar-title>
             <v-spacer></v-spacer>
 
             <v-btn icon @click="deleteEvent(selectedEvent)">
