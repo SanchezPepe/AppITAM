@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+    <script src="libs/js/jquery-3.1.1.min.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="libs/css/bootstrap.css">
+    <script src="libs/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Horarios ITAM</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="https://horarios-itam.firebaseapp.com">Planear horario</a></li>
+            <li><a href="https://generador-horarios-itam.firebaseapp.com">Generar horario</a></li>
+            <li class="active"><a href="bug_report.html">Reportar falla</a></li>
+
+        </ul>
+    </div>
+</nav>
+
+<form  style="margin-left:10%;margin-right:10%">
+    <h2 >App hecha por alumnos para alumnos...</h2>
+    <h3 > Por favor, ayúdanos reportando fallas. Haremos lo posible por corregirlo pronto.</h3>
+    <br>
+    <div class="form-group">
+        <label for="falla" >Descripción:</label>
+        <textarea type="text" class="form-control" rows="10" id="falla" name="texto"></textarea>
+    </div>
+    <button type="reset" class="btn btn-secondary" >Limpiar</button>
+    <button id="btnFeedback" class="btn btn-primary">Enviar</button>
+</form>
+<br><br><br>
+<h4 style="margin-left:10%;margin-right:10%"><stong>¡Muchas gracias!</stong></h4>
+<br/>
+<h5 style="margin-left:10%;margin-right:10%"> Fernando Ruiloba y Pedro Lanzagorta</h5>
+
+<script>
+    $('#btnFeedback').click(function(event){
+        event.preventDefault();
+        if($('#falla').val() && $('#falla').val().length>0)
+            $.ajax({
+                    method: 'POST',
+                    url: 'https://horarios-itam.firebaseio.com/feedback.json',
+                    contentType: 'application/json',
+                    data: JSON.stringify({'description':$('#falla').val()})
+                })
+                .then(function(response) {
+                    alert('To comentario ha sido registrado. ¡Gracias!')
+                });
+    })
+</script>
+
+</body>
+</html>
+
