@@ -27,6 +27,7 @@
           </v-btn>
         </v-col>
       </v-row>
+      <Checkout :selectedCourses="summary" />
     </v-container>
 
     <!-- POP UP DIALOG FOR ADDING COURSES -->
@@ -91,69 +92,24 @@
         </v-tabs-items>
       </v-card>
     </v-dialog>
-    <Calendar :events="lectures" />
+    <Calendar :events="summary" />
   </v-container>
 </template>
 
 <script>
 import GroupCard from "./GroupCard";
-import Calendar from "./Calendar.vue";
+import Calendar from "./Calendar";
+import Checkout from "./Checkout";
 
 export default {
   data: () => ({
     items: [],
     values: [],
     selectedGroups: {},
-    lectures: [],
+    summary: [],
     dialog: false,
     tab: null,
-    error: false,
-    colors: [
-      "blue darken-1",
-      "blue darken-2",
-      "blue darken-3",
-      "blue darken-4",
-      "blue-grey darken-1",
-      "blue-grey darken-2",
-      "blue-grey darken-3",
-      "blue-grey darken-4",
-      "cyan darken-1",
-      "cyan darken-2",
-      "cyan darken-3",
-      "cyan darken-4",
-      "deep-orange darken-1",
-      "deep-orange darken-2",
-      "deep-orange darken-3",
-      "deep-orange darken-4",
-      "deep-purple darken-1",
-      "deep-purple darken-2",
-      "deep-purple darken-3",
-      "deep-purple darken-4",
-      "green darken-1",
-      "green darken-2",
-      "green darken-3",
-      "green darken-4",
-      "indigo darken-1",
-      "indigo darken-2",
-      "indigo darken-3",
-      "indigo darken-4",
-      "light-blue darken-1",
-      "light-blue darken-2",
-      "light-blue darken-3",
-      "light-blue darken-4",
-      "pink darken-1",
-      "pink darken-2",
-      "pink darken-3",
-      "pink darken-4",
-      "teal darken-1",
-      "teal darken-2",
-      "teal darken-3",
-      "teal darken-4",
-      "yellow darken-1",
-      "yellow darken-2",
-      "yellow darken-3",
-      "yellow darken-4"
-    ]
+    error: false
   }),
   props: {
     courses: Object
@@ -181,55 +137,22 @@ export default {
       this.selectedGroups[courseName] = groupNumber;
     },
     submitCourses() {
-      this.lectures = [];
+      this.summary = [];
       Object.keys(this.selectedGroups).forEach(courseKey => {
         let groupNumber = this.selectedGroups[courseKey];
         let groupObj = this.courses[courseKey][groupNumber];
         // For each group data in the selected group array
-        let eventColor = this.colors[
-          Math.floor(Math.random() * this.colors.length)
-        ];
         groupObj.forEach(el => {
-          // For each day of class for each group
-          el.days.forEach(day => {
-            let dayNum = this.getDayNumber(day);
-            let newGroup = {
-              color: eventColor,
-              name: courseKey,
-              start: new Date("2020-06-" + dayNum + " " + el.time[0]),
-              end: new Date("2020-06-" + dayNum + " " + el.time[1]),
-              timed: true,
-              details: el.comments,
-              teacher: el.teacher,
-              classroom: el.room,
-              campus: el.campus
-            };
-            this.lectures.push(newGroup);
-          });
+          this.summary.push([el, courseKey, groupNumber]);
         });
       });
       this.dialog = false;
-    },
-    getDayNumber(day) {
-      switch (day) {
-        case "LU":
-          return 1;
-        case "MA":
-          return 2;
-        case "MI":
-          return 3;
-        case "JU":
-          return 4;
-        case "VI":
-          return 5;
-        default:
-          return 0;
-      }
     }
   },
   components: {
     GroupCard,
-    Calendar
+    Calendar,
+    Checkout
   }
 };
 </script>
