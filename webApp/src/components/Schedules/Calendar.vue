@@ -122,26 +122,29 @@ export default {
           let el = _events[i];
           let group = el[0];
           let courseName = el[1];
+          //let groupNumber = el[2];
           let color = this.colors[
             Math.floor(Math.random() * this.colors.length)
           ];
-          //let groupNumber = el[2];
-          // For each day of class for each group
-          for (let j = 0; j < group.days.length; j++) {
-            let day = group.days[j];
-            let dayNum = this.getDayNumber(day);
-            let newGroup = {
-              color: color,
-              name: courseName,
-              start: new Date("2020-06-" + dayNum + " " + group.time[0]),
-              end: new Date("2020-06-" + dayNum + " " + group.time[1]),
-              timed: true,
-              details: group.comments,
-              teacher: group.teacher,
-              classroom: group.room,
-              campus: group.campus
-            };
-            this.lectures.push(newGroup);
+          for (let k = 0; k < group.length; k++) {
+            let lesson = group[k];
+            // For each day of class for each group
+            for (let j = 0; j < lesson.days.length; j++) {
+              let day = lesson.days[j];
+              let dayNum = this.getDayNumber(day);
+              let newGroup = {
+                color: color,
+                name: courseName,
+                start: new Date("2020-06-" + dayNum + " " + lesson.time[0]),
+                end: new Date("2020-06-" + dayNum + " " + lesson.time[1]),
+                timed: true,
+                details: lesson.comments,
+                teacher: lesson.teacher,
+                classroom: lesson.room,
+                campus: lesson.campus
+              };
+              this.lectures.push(newGroup);
+            }
           }
         }
       }
@@ -177,15 +180,15 @@ export default {
     },
     deleteEvent(event) {
       // Delete all the clases from a group
-      let name = event.name;
-      for (let i = this.lectures.length - 1; i >= 0; i--) {
+      /* for (let i = this.lectures.length - 1; i >= 0; i--) {
         let ev = this.lectures[i];
         if (ev.name == name) {
           let i = this.lectures.indexOf(ev);
           this.lectures.splice(i, 1);
           console.log("Deleted event from calendar", ev);
         }
-      }
+      } */
+      this.$emit("clicked", event.name);
       this.selectedOpen = false;
     },
     showEvent({ nativeEvent, event }) {

@@ -32,15 +32,18 @@
                 </th>
               </tr>
             </thead>
-            <tbody>
-              <tr v-for="course in selectedCourses" :key="course[1]">
+            <tbody v-for="course in selectedCourses" :key="course[1]">
+              <tr
+                v-for="lesson in course[0]"
+                :key="lesson.teacher + lesson.days"
+              >
                 <td>{{ course[1] }}</td>
                 <td>{{ course[2] }}</td>
-                <td>{{ course[0].teacher }}</td>
-                <td>{{ course[0].days.join(" - ") }}</td>
-                <td>{{ course[0].time[0] }} - {{ course[0].time[1] }}</td>
-                <td>{{ course[0].credits }}</td>
-                <td>{{ course[0].room }} - {{ course[0].campus }}</td>
+                <td>{{ lesson.teacher }}</td>
+                <td>{{ lesson.days.join(" - ") }}</td>
+                <td>{{ lesson.time[0] }} - {{ lesson.time[1] }}</td>
+                <td>{{ lesson.credits }}</td>
+                <td>{{ lesson.room }} - {{ lesson.campus }}</td>
               </tr>
             </tbody>
           </template>
