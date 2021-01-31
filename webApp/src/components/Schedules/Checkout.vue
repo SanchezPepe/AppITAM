@@ -1,11 +1,11 @@
 <template>
-  <v-expansion-panels>
+  <v-expansion-panels focusable accordion>
     <v-expansion-panel>
       <v-expansion-panel-header>
         Resumen
       </v-expansion-panel-header>
       <v-expansion-panel-content>
-        <v-simple-table fixed-header height="300px">
+        <v-simple-table fixed-header>
           <template v-slot:default>
             <thead>
               <tr>
@@ -37,7 +37,6 @@
                 <td>{{ course[1] }}</td>
                 <td>{{ course[2] }}</td>
                 <td>{{ course[0].teacher }}</td>
-
                 <td>{{ course[0].days.join(" - ") }}</td>
                 <td>{{ course[0].time[0] }} - {{ course[0].time[1] }}</td>
                 <td>{{ course[0].credits }}</td>
@@ -59,4 +58,10 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+th,
+td {
+  color: black !important;
+  font-weight: bold !important;
+}
+</style>

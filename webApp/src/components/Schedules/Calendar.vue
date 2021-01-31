@@ -73,10 +73,6 @@ export default {
       "blue darken-2",
       "blue darken-3",
       "blue darken-4",
-      "blue-grey darken-1",
-      "blue-grey darken-2",
-      "blue-grey darken-3",
-      "blue-grey darken-4",
       "cyan darken-1",
       "cyan darken-2",
       "cyan darken-3",
@@ -120,6 +116,7 @@ export default {
   },
   watch: {
     events: function(_events) {
+      this.lectures = [];
       if (_events.length > 0) {
         for (let i = 0; i < _events.length; i++) {
           let el = _events[i];
@@ -171,6 +168,7 @@ export default {
         case "VI":
           return 5;
         default:
+          console.error("DAY PARSING FAILED");
           return 0;
       }
     },
@@ -180,15 +178,14 @@ export default {
     deleteEvent(event) {
       // Delete all the clases from a group
       let name = event.name;
-      for (let i = this.events.length - 1; i >= 0; i--) {
-        let ev = this.events[i];
+      for (let i = this.lectures.length - 1; i >= 0; i--) {
+        let ev = this.lectures[i];
         if (ev.name == name) {
-          let i = this.events.indexOf(ev);
-          this.events.splice(i, 1);
+          let i = this.lectures.indexOf(ev);
+          this.lectures.splice(i, 1);
           console.log("Deleted event from calendar", ev);
         }
       }
-      //this.events.splice(this.events.indexOf(event), 1)
       this.selectedOpen = false;
     },
     showEvent({ nativeEvent, event }) {
