@@ -179,15 +179,6 @@ export default {
       return event.color;
     },
     deleteEvent(event) {
-      // Delete all the clases from a group
-      /* for (let i = this.lectures.length - 1; i >= 0; i--) {
-        let ev = this.lectures[i];
-        if (ev.name == name) {
-          let i = this.lectures.indexOf(ev);
-          this.lectures.splice(i, 1);
-          console.log("Deleted event from calendar", ev);
-        }
-      } */
       this.$emit("clicked", event.name);
       this.selectedOpen = false;
     },

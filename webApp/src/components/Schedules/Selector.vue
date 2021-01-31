@@ -22,9 +22,74 @@
             Ver horarios
           </v-btn>
 
-          <v-btn color="warning" class="mr-4" @click="resetCal">
-            Reiniciar
-          </v-btn>
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                fab
+                dark
+                small
+                v-bind="attrs"
+                v-on="on"
+                color="primary"
+                class="mr-4"
+                rounded
+                :loading="isSelecting"
+                @click="uploadSchedule"
+              >
+                <v-icon>
+                  mdi-upload
+                </v-icon>
+                <input
+                  ref="uploader"
+                  class="d-none"
+                  type="file"
+                  accept="application/json"
+                  @change="onFileChanged"
+                />
+              </v-btn>
+            </template>
+            <span>Cargar Horario</span>
+          </v-tooltip>
+
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                color="blue darken-4"
+                class="mr-4"
+                fab
+                dark
+                small
+                v-bind="attrs"
+                v-on="on"
+                @click="exportSchedule"
+              >
+                <v-icon dark>
+                  mdi-download
+                </v-icon>
+              </v-btn>
+            </template>
+            <span>Descargar</span>
+          </v-tooltip>
+
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                class="mr-4"
+                fab
+                dark
+                small
+                color="warning"
+                v-bind="attrs"
+                v-on="on"
+                @click="resetCal"
+              >
+                <v-icon dark>
+                  mdi-delete
+                </v-icon>
+              </v-btn>
+            </template>
+            <span>Borrar todo</span>
+          </v-tooltip>
         </v-col>
       </v-row>
       <Checkout :selectedCourses="summary" />
@@ -109,7 +174,8 @@ export default {
     summary: [],
     dialog: false,
     tab: null,
-    error: false
+    error: false,
+    isSelecting: false
   }),
   props: {
     courses: Object
@@ -155,6 +221,52 @@ export default {
       });
 
       this.dialog = false;
+    },
+    exportSchedule() {
+      if (this.summary.length > 0) {
+        let obj = { courses: this.summary };
+        let content = JSON.stringify(obj);
+        let contentType = "text/plain";
+        let a = document.createElement("a");
+        let file = new Blob([content], {
+          type: contentType
+        });
+        a.href = URL.createObjectURL(file);
+        a.download = "Schedule.json";
+        a.click();
+      } else {
+        alert("Nada que guardar");
+      }
+    },
+    uploadSchedule() {
+      this.isSelecting = true;
+      window.addEventListener(
+        "focus",
+        () => {
+          this.isSelecting = false;
+        },
+        { once: true }
+      );
+      this.$refs.uploader.click();
+    },
+    onFileChanged(e) {
+      try {
+        let file = e.target.files[0];
+        let reader = new FileReader();
+        let self = this;
+        reader.readAsText(file);
+        reader.onload = function(evt) {
+          let courses = JSON.parse(evt.target.result).courses;
+          console.log(courses);
+          courses.forEach(el => {
+            self.summary.push(el);
+          });
+          alert("Horario cargado correctamente");
+        };
+      } catch (error) {
+        console.log(error);
+        alert("Hubo un error, revisa que tu archivo sea correcto");
+      }
     }
   },
   components: {
