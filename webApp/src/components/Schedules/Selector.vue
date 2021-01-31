@@ -92,7 +92,7 @@
         </v-tabs-items>
       </v-card>
     </v-dialog>
-    <Calendar :events="summary" />
+    <Calendar :events="summary" @clicked="onEventDeleted" />
   </v-container>
 </template>
 
@@ -136,16 +136,24 @@ export default {
       let groupNumber = group[1];
       this.selectedGroups[courseName] = groupNumber;
     },
+    onEventDeleted(name) {
+      for (let i = this.summary.length - 1; i >= 0; i--) {
+        let eventName = this.summary[i][1];
+        if (eventName == name) {
+          this.summary.splice(i, 1);
+          console.log("Deleted class", name);
+        }
+      }
+    },
     submitCourses() {
       this.summary = [];
       Object.keys(this.selectedGroups).forEach(courseKey => {
         let groupNumber = this.selectedGroups[courseKey];
         let groupObj = this.courses[courseKey][groupNumber];
         // For each group data in the selected group array
-        groupObj.forEach(el => {
-          this.summary.push([el, courseKey, groupNumber]);
-        });
+        this.summary.push([groupObj, courseKey, groupNumber]);
       });
+
       this.dialog = false;
     }
   },
