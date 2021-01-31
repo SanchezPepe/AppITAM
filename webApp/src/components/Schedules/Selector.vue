@@ -128,7 +128,7 @@ export default {
     },
     resetCal() {
       this.values = [];
-      this.lectures = [];
+      this.summary = [];
       this.selectedGroups = {};
     },
     onGroupClicked(group) {

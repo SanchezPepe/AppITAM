@@ -72,32 +72,78 @@ export default {
       items: [
         {
           icon: "mdi-notebook",
-          title: "Plan de estudios",
+          title: "Planes de estudio",
           subitems: [
-            { title: "Actuaría", to: "/planes/actuaria" },
-            { title: "Administración", to: "/planes/administracion" },
-            { title: "Contaduría", to: "/planes/contaduria" },
-            { title: "Ciencias Políticas", to: "/planes/cpol" },
-            { title: "Derecho", to: "/planes/derecho" },
+            {
+              title: "Actuaría",
+              href:
+                "https://actuaria.itam.mx/sites/default/files/programas/planes/plan-de-estudios-de-la-licenciatura-en-actuaria-del-ITAM.pdf"
+            },
+            {
+              title: "Administración",
+              href:
+                "https://administracion.itam.mx/sites/default/files/programas/planes/plan-de-estudios-de-la-licenciatura-en-administracion-del-ITAM.pdf"
+            },
+            {
+              title: "Ciencia de Datos",
+              href:
+                "https://daaem.itam.mx/sites/default/files/programas/planes/plan_ciencia_datos.pdf"
+            },
+            {
+              title: "Ciencia Política",
+              href:
+                "https://politica.itam.mx/sites/default/files/programas/planes/plan-de-estudios-de-la-licenciatura-en-ciencia-politica-del-ITAM.pdf"
+            },
+            {
+              title: "Contaduría",
+              href:
+                "https://contaduria.itam.mx/sites/default/files/programas/planes/plan-de-estudios-de-la-licenciatura-en-contaduria-publica-y-estrategia-financiera-del-ITAM.pdf"
+            },
+            {
+              title: "Derecho",
+              href:
+                "http://daedcs.itam.mx/sites/default/files/programas/planes/plan_derecho.pdf"
+            },
             {
               title: "Dirección Financiera",
-              to: "/planes/direccionfinanciera"
+              href:
+                "https://direccionfinanciera.itam.mx/sites/default/files/programas/planes/plan-de-estudios-de-la-licenciatura-en-direccion-financiera-del-ITAM.pdf"
             },
-            { title: "Economía", to: "/planes/economia" },
-            { title: "Relaciones Internacionales", to: "/planes/ri" },
-            { title: "Matemáticas Aplicadas", to: "/planes/mate" },
-            { title: "Ing. en Computación", to: "/planes/computacion" },
-            { title: "Ing. en Negocios", to: "/planes/negocios" },
-            { title: "Ing. Industrial", to: "/planes/industrial" },
-            { title: "Ing. en Mecatrónica", to: "/planes/mecatronica" }
-          ]
-        },
-        {
-          icon: "mdi-book-account",
-          title: "Laboratorios",
-          subitems: [
-            { title: "Economía", to: "/laboratorios/economia" },
-            { title: "Cálculo", to: "/laboratorios/calculo" }
+            {
+              title: "Economía",
+              href:
+                "https://economia.itam.mx/sites/default/files/programas/planes/plan-de-estudios-de-la-licenciatura-en-economia-del-ITAM.pdf"
+            },
+            {
+              title: "Matemáticas Aplicadas",
+              href:
+                "https://matematicas.itam.mx/sites/default/files/programas/planes/plan-de-estudios-de-la-licenciatura-en-matematicas-aplicadas-del-ITAM.pdf"
+            },
+            {
+              title: "Relaciones Internacionales",
+              href:
+                "https://relacionesinternacionales.itam.mx/sites/default/files/programas/planes/plan-de-estudios-de-la-licenciatura-en-relaciones-internacionales-del-ITAM.pdf"
+            },
+            {
+              title: "Ing. Computación",
+              href:
+                "https://dai.itam.mx/sites/default/files/programas/planes/plan_ing_computacion.pdf"
+            },
+            {
+              title: "Ing. Industrial",
+              href:
+                "https://dai.itam.mx/sites/default/files/programas/planes/plan_ing_industrial.pdf"
+            },
+            {
+              title: "Ing. Mecatrónica",
+              href:
+                "https://mecatronica.itam.mx/sites/default/files/programas/planes/plan-de-estudios-de-la-ingenieria-en-mecatronica-del-ITAM.pdf"
+            },
+            {
+              title: "Ing. Negocios",
+              href:
+                "https://ingnegocios.itam.mx/sites/default/files/programas/planes/plan-de-estudios-de-la-ingenieria-en-negocios-del-ITAM.pdf"
+            }
           ]
         },
         {
@@ -110,6 +156,13 @@ export default {
             { title: "Football", to: "/deportes/football" },
             { title: "Frisbee", to: "/deportes/frisbee" },
             { title: "Basketball Fem", to: "/deportes/basketballfem" }
+          ]
+        },
+        {
+          title: "OE's",
+          subitems: [
+            { title: "Ajedrez", to: "/oes/ajedrez" },
+            { title: "Verde ITAM", to: "/oes/verdeitam" }
           ]
         },
         {
@@ -131,20 +184,33 @@ export default {
         },
         {
           icon: "mdi-link",
-          title: "Links",
+          title: "Links importantes",
           subitems: [
             { title: "ITAM", href: "https://www.itam.mx/" },
             { title: "Comunidad ITAM", href: "https://comunidad.itam.mx" },
-            { title: "Servicios Personalizados", href: "http://grace.itam.mx" },
+            {
+              title: "Servicios Personalizados",
+              href: "https://serviciosweb.itam.mx/EDSUP/twbkwbis.P_WWWLogin"
+            },
             {
               title: "Servicios NO Personalizados",
-              href: "http://grace.itam.mx/EDSUP/BWZKSENP.P_MenuServNoPers"
+              href:
+                "https://serviciosweb.itam.mx/EDSUP/BWZKSENP.P_MenuServNoPers"
             },
             { title: "Biblioteca", href: "https://biblioteca.itam.mx" }
           ]
         }
       ]
     };
+  },
+  methods: {
+    sendTo(item) {
+      if (item.href) {
+        window.open(item.href, "_blank");
+      } else {
+        this.$router.push(item.to);
+      }
+    }
   }
 };
 </script>

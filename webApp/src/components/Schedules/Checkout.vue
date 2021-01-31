@@ -25,7 +25,7 @@
                   Horario
                 </th>
                 <th class="text-left">
-                  Creditos
+                  Créditos
                 </th>
                 <th class="text-left">
                   Salón
