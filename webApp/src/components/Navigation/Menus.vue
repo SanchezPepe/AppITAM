@@ -1,39 +1,52 @@
 <template>
-  <v-app>
-    <v-navigation-drawer :clipped="clipped" v-model="drawer" fixed app>
-      <v-list-item
-        v-for="item in single_items"
-        :key="item.title"
-        @click="sendTo(item)"
-      >
-        <v-list-item-icon>
-          <v-icon> {{ item.icon }}</v-icon>
-        </v-list-item-icon>
+  <div>
+    <!-- Single items menu's -->
+    <v-menu
+      open-on-hover
+      bottom
+      offset-y
+      rounded="large"
+      transition="slide-y-transition"
+      v-for="item in single_items"
+      :key="item.title"
+      @click="sendTo(item)"
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn text dark v-bind="attrs" v-on="on">
+          <!-- <v-icon> {{ item.icon }}</v-icon> -->
+          {{ item.title }}
+        </v-btn>
+      </template>
+    </v-menu>
 
-        <v-list-item-title> {{ item.title }}</v-list-item-title>
-      </v-list-item>
+    <!-- Multiple items menu's -->
+    <v-menu
+      open-on-hover
+      bottom
+      offset-y
+      rounded="large"
+      transition="slide-y-transition"
+      v-for="item in items"
+      :key="item.title"
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn text dark v-bind="attrs" v-on="on">
+          <!-- <v-icon> {{ item.icon }}</v-icon> -->
+          {{ item.title }}
+        </v-btn>
+      </template>
 
-      <v-list-group
-        v-for="item in items"
-        v-model="item.active"
-        :key="item.title"
-        :prepend-icon="item.icon"
-        no-action
-      >
-        <template v-slot:activator>
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
-        </template>
-
+      <v-list>
         <v-list-item
-          v-for="subItem in item.items"
+          v-for="subItem in item.subitems"
           :key="subItem.title"
           @click="sendTo(subItem)"
         >
           <v-list-item-title> {{ subItem.title }}</v-list-item-title>
         </v-list-item>
-      </v-list-group>
-    </v-navigation-drawer>
-  </v-app>
+      </v-list>
+    </v-menu>
+  </div>
 </template>
 
 <script>
@@ -47,7 +60,7 @@ export default {
       single_items: [
         {
           icon: "mdi-home",
-          title: "Bienvenidos",
+          title: "Inicio",
           to: "/"
         },
         {
@@ -60,7 +73,7 @@ export default {
         {
           icon: "mdi-notebook",
           title: "Plan de estudios",
-          items: [
+          subitems: [
             { title: "Actuaría", to: "/planes/actuaria" },
             { title: "Administración", to: "/planes/administracion" },
             { title: "Contaduría", to: "/planes/contaduria" },
@@ -82,7 +95,7 @@ export default {
         {
           icon: "mdi-book-account",
           title: "Laboratorios",
-          items: [
+          subitems: [
             { title: "Economía", to: "/laboratorios/economia" },
             { title: "Cálculo", to: "/laboratorios/calculo" }
           ]
@@ -90,7 +103,7 @@ export default {
         {
           icon: "mdi-soccer-field",
           title: "Deportes",
-          items: [
+          subitems: [
             { title: "Rugby", to: "/deportes/rugby" },
             { title: "Rugby Fem", to: "/deportes/rugbyfem" },
             { title: "Cheerleading", to: "/deportes/cheerleading" },
@@ -102,7 +115,7 @@ export default {
         {
           icon: "mdi-calendar",
           title: "Calendarios",
-          items: [
+          subitems: [
             { title: "2018", to: "/calendarios/2018" },
             { title: "2019", to: "/calendarios/2019" },
             { title: "2020", to: "/calendarios/2020" }
@@ -111,7 +124,7 @@ export default {
         {
           icon: "mdi-bus-multiple",
           title: "Transporte",
-          items: [
+          subitems: [
             { title: "Metro", to: "/transporte/metro" },
             { title: "Santa Teresa", to: "/transporte/santateresa" }
           ]
@@ -119,7 +132,7 @@ export default {
         {
           icon: "mdi-link",
           title: "Links",
-          items: [
+          subitems: [
             { title: "ITAM", href: "https://www.itam.mx/" },
             { title: "Comunidad ITAM", href: "https://comunidad.itam.mx" },
             { title: "Servicios Personalizados", href: "http://grace.itam.mx" },
