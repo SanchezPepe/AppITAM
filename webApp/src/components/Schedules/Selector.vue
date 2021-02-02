@@ -1,8 +1,13 @@
 <template>
   <v-container>
     <v-container>
-      <v-row no-gutters>
-        <v-col md="9" cols="12">
+      <strong>
+        <p>
+          Se muestran horarios para el semestre PRIMAVERA 2021
+        </p>
+      </strong>
+      <v-row>
+        <v-col cols="10">
           <v-autocomplete
             :items="items"
             :error="error"
@@ -17,10 +22,35 @@
           ></v-autocomplete>
         </v-col>
 
-        <v-col md="3" cols="12" align="end">
-          <v-btn color="success" class="mr-4" @click="addCourses">
-            Ver horarios
-          </v-btn>
+        <v-col cols="2" align="end">
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                fab
+                dark
+                small
+                v-bind="attrs"
+                v-on="on"
+                color="success"
+                class="mr-4"
+                rounded
+                :loading="isSelecting"
+                @click="addCourses"
+              >
+                <v-icon>
+                  mdi-magnify
+                </v-icon>
+                <input
+                  ref="uploader"
+                  class="d-none"
+                  type="file"
+                  accept="application/json"
+                  @change="onFileChanged"
+                />
+              </v-btn>
+            </template>
+            <span>Buscar horarios</span>
+          </v-tooltip>
 
           <v-tooltip bottom>
             <template v-slot:activator="{ on, attrs }">
@@ -219,7 +249,6 @@ export default {
         // For each group data in the selected group array
         this.summary.push([groupObj, courseKey, groupNumber]);
       });
-
       this.dialog = false;
     },
     exportSchedule() {

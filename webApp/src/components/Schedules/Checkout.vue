@@ -66,5 +66,6 @@ th,
 td {
   color: black !important;
   font-weight: bold !important;
+  border-bottom: none !important;
 }
 </style>
