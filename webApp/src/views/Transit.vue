@@ -1,11 +1,22 @@
 <template>
   <v-container>
     <p>Sample text</p>
+    <Map />
   </v-container>
 </template>
 
 <script>
-export default {};
+import Map from "../components/BusLocation/Map";
+
+export default {
+  components: {
+    Map
+  }
+};
 </script>
 
-<style></style>
+<style scoped>
+v-container {
+  height: 100%;
+}
+</style>
