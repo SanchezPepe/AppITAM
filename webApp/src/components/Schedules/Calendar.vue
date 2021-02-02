@@ -4,7 +4,7 @@
       <v-calendar
         ref="calendar"
         type="week"
-        interval-height="25"
+        interval-height="22"
         first-time="06:30"
         interval-minutes="30"
         interval-count="34"

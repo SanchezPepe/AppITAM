@@ -21,12 +21,6 @@
           Encargados del laboratorio: Jaime Limón Samperio y Emiliano Sotomayor
           González
         </p>
-        <v-textarea
-          solo
-          name="input-7-4"
-          v-model="comment"
-          label="Escribe tu mensaje :)"
-        ></v-textarea>
         <v-layout row justify-center align-center>
           <v-flex xs12 sm6 md6 lg4>
             <v-card-actions class="ml-2">
@@ -38,38 +32,6 @@
         </v-layout>
       </v-card-text>
     </v-card>
-    <v-dialog v-model="success" persistent width="40%">
-      <v-card flat>
-        <v-card-text class="text-xs-center">
-          <h2>!Gracias por tu comentario!</h2>
-          <p>
-            Apreciamos tu ayuda y queremos que sepas que tu comentario nos ayuda
-            a mejorar.
-          </p>
-          <v-btn
-            @click="success = false"
-            block
-            color="green"
-            class="white--text"
-            >Regresar</v-btn
-          >
-        </v-card-text>
-      </v-card>
-    </v-dialog>
-    <v-dialog v-model="error" persistent width="40%">
-      <v-card flat>
-        <v-card-text class="text-xs-center">
-          <h2>Oh no!</h2>
-          <p>
-            Hubo un problema, pero nos encantaría que volvieras a enviarnos tu
-            comentario
-          </p>
-          <v-btn @click="error = false" block color="red" class="white--text"
-            >Regresar</v-btn
-          >
-        </v-card-text>
-      </v-card>
-    </v-dialog>
   </div>
 </template>
 

@@ -5,7 +5,7 @@
         Resumen
       </v-expansion-panel-header>
       <v-expansion-panel-content>
-        <v-simple-table fixed-header>
+        <v-simple-table fixed-header dense>
           <template v-slot:default>
             <thead>
               <tr>

@@ -30,7 +30,7 @@
         <v-row>
           <v-col>
             <v-sheet min-height="70vh" rounded="lg">
-              <ScheduleCreator />
+              <router-view></router-view>
             </v-sheet>
           </v-col>
         </v-row>
@@ -40,15 +40,15 @@
 </template>
 
 <script>
-import ScheduleCreator from "./views/ScheduleCreator";
+//import ScheduleCreator from "./views/ScheduleCreator";
 import Menus from "./components/Navigation/Menus";
 
 export default {
   name: "App",
 
   components: {
-    Menus,
-    ScheduleCreator
+    Menus
+    //ScheduleCreator
   },
   data: () => ({
     links: ["Dashboard", "Messages", "Profile", "Updates"]

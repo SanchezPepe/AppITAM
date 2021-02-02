@@ -2,17 +2,13 @@
   <div>
     <!-- Single items menu's -->
     <v-menu
-      open-on-hover
-      bottom
-      offset-y
       rounded="large"
       transition="slide-y-transition"
       v-for="item in single_items"
       :key="item.title"
-      @click="sendTo(item)"
     >
       <template v-slot:activator="{ on, attrs }">
-        <v-btn text dark v-bind="attrs" v-on="on">
+        <v-btn text dark v-bind="attrs" v-on="on" @click="sendTo(item)">
           <!-- <v-icon> {{ item.icon }}</v-icon> -->
           {{ item.title }}
         </v-btn>
@@ -66,7 +62,7 @@ export default {
         {
           icon: "mdi-table-clock",
           title: "Horarios",
-          to: "/horarios"
+          to: "/calendar"
         }
       ],
       items: [
@@ -147,6 +143,30 @@ export default {
           ]
         },
         {
+          icon: "mdi-calendar",
+          title: "Calendarios",
+          subitems: [
+            {
+              title: "Escolar: 2021",
+              href:
+                "http://escolar.itam.mx/servicios_escolares/calendarios/calesc2021_.gif"
+            },
+            {
+              title: "Pagos: 2021",
+              href:
+                "http://escolar.itam.mx/servicios_escolares/calendarios/calescpagos2021.gif"
+            }
+          ]
+        },
+        {
+          icon: "mdi-bus-multiple",
+          title: "Transporte",
+          subitems: [
+            { title: "Metro", to: "/transporte/metro" },
+            { title: "Santa Teresa", to: "/transporte/santateresa" }
+          ]
+        },
+        {
           icon: "mdi-soccer-field",
           title: "Deportes",
           subitems: [
@@ -163,23 +183,6 @@ export default {
           subitems: [
             { title: "Ajedrez", to: "/oes/ajedrez" },
             { title: "Verde ITAM", to: "/oes/verdeitam" }
-          ]
-        },
-        {
-          icon: "mdi-calendar",
-          title: "Calendarios",
-          subitems: [
-            { title: "2018", to: "/calendarios/2018" },
-            { title: "2019", to: "/calendarios/2019" },
-            { title: "2020", to: "/calendarios/2020" }
-          ]
-        },
-        {
-          icon: "mdi-bus-multiple",
-          title: "Transporte",
-          subitems: [
-            { title: "Metro", to: "/transporte/metro" },
-            { title: "Santa Teresa", to: "/transporte/santateresa" }
           ]
         },
         {
@@ -208,7 +211,8 @@ export default {
       if (item.href) {
         window.open(item.href, "_blank");
       } else {
-        this.$router.push(item.to);
+        const path = item.to;
+        if (this.$route.path !== path) this.$router.push(path);
       }
     }
   }
