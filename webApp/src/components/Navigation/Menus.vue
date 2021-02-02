@@ -63,6 +63,11 @@ export default {
           icon: "mdi-table-clock",
           title: "Horarios",
           to: "/calendar"
+        },
+        {
+          icon: "mdi-bus-multiple",
+          title: "Transporte",
+          to: "/transit"
         }
       ],
       items: [
@@ -156,14 +161,6 @@ export default {
               href:
                 "http://escolar.itam.mx/servicios_escolares/calendarios/calescpagos2021.gif"
             }
-          ]
-        },
-        {
-          icon: "mdi-bus-multiple",
-          title: "Transporte",
-          subitems: [
-            { title: "Metro", to: "/transporte/metro" },
-            { title: "Santa Teresa", to: "/transporte/santateresa" }
           ]
         },
         {
