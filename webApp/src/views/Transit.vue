@@ -1,7 +1,8 @@
 <template>
   <v-container>
-    <p>Sample text</p>
-    <Map />
+    <v-card height="80vh">
+      <Map />
+    </v-card>
   </v-container>
 </template>
 
@@ -15,8 +16,4 @@ export default {
 };
 </script>
 
-<style scoped>
-v-container {
-  height: 100%;
-}
-</style>
+<style scoped></style>

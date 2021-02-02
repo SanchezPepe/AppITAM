@@ -11,7 +11,7 @@
 
         <Menus />
 
-        <v-spacer></v-spacer>
+        <!--        <v-spacer></v-spacer>
 
         <v-responsive max-width="260">
           <v-text-field
@@ -21,7 +21,7 @@
             rounded
             solo-inverted
           ></v-text-field>
-        </v-responsive>
+        </v-responsive> -->
       </v-container>
     </v-app-bar>
 
@@ -29,7 +29,7 @@
       <v-container>
         <v-row>
           <v-col>
-            <v-sheet min-height="70vh" rounded="lg">
+            <v-sheet min-height="90vh" rounded="lg">
               <router-view></router-view>
             </v-sheet>
           </v-col>
