@@ -1,17 +1,15 @@
 <template>
   <v-container>
-    <v-card height="80vh">
-      <Map />
-    </v-card>
+    <Track />
   </v-container>
 </template>
 
 <script>
-import Map from "../components/BusLocation/Map";
+import Track from "../components/BusLocation/Tracking";
 
 export default {
   components: {
-    Map
+    Track
   }
 };
 </script>
