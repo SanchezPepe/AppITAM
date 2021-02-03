@@ -32,7 +32,6 @@
 
 <script>
 export default {
-  middleware: ["auth"],
   data() {
     return {
       title: "",
@@ -170,6 +169,11 @@ export default {
           title: "Links importantes",
           subitems: [
             { title: "ITAM", href: "https://www.itam.mx/" },
+            {
+              title: "Canvas",
+              href: "https://itam.instructure.com/login/canvas"
+            },
+
             { title: "Comunidad ITAM", href: "https://comunidad.itam.mx" },
             {
               title: "Servicios Personalizados",
