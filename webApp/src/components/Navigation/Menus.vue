@@ -1,10 +1,12 @@
 <template>
   <div>
-    <!-- Single items menu's -->
     <v-menu
+      open-on-hover
+      bottom
+      offset-y
       rounded="large"
       transition="slide-y-transition"
-      v-for="item in single_items"
+      v-for="item in menuItems"
       :key="item.title"
     >
       <template v-slot:activator="{ on, attrs }">
@@ -13,26 +15,9 @@
           {{ item.title }}
         </v-btn>
       </template>
-    </v-menu>
 
-    <!-- Multiple items menu's -->
-    <v-menu
-      open-on-hover
-      bottom
-      offset-y
-      rounded="large"
-      transition="slide-y-transition"
-      v-for="item in items"
-      :key="item.title"
-    >
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn text dark v-bind="attrs" v-on="on">
-          <!-- <v-icon> {{ item.icon }}</v-icon> -->
-          {{ item.title }}
-        </v-btn>
-      </template>
-
-      <v-list>
+      <!-- If there are subitems items menu's -->
+      <v-list v-if="item.subitems">
         <v-list-item
           v-for="subItem in item.subitems"
           :key="subItem.title"
@@ -53,7 +38,7 @@ export default {
       title: "",
       drawer: true,
       clipped: true,
-      single_items: [
+      menuItems: [
         {
           icon: "mdi-home",
           title: "Inicio",
@@ -68,9 +53,7 @@ export default {
           icon: "mdi-bus-multiple",
           title: "Transporte",
           to: "/transit"
-        }
-      ],
-      items: [
+        },
         {
           icon: "mdi-notebook",
           title: "Planes de estudio",
