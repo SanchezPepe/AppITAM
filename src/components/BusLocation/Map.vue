@@ -1,34 +1,67 @@
 <template>
-  <div id="mapContainer" class="basemap"></div>
+  <div id="map">
+    <!--In the following div the HERE Map will render-->
+    <div id="mapContainer" style="height:600px;width:100%" ref="hereMap"></div>
+  </div>
 </template>
 
 <script>
-import mapboxgl from "mapbox-gl";
-
 export default {
-  name: "BaseMap",
+  name: "HereMap",
+  props: {
+    center: Object
+    // center object { lat: 40.730610, lng: -73.935242 }
+  },
   data() {
     return {
-      accessToken:
-        "pk.eyJ1IjoiampzYW5jaGV6IiwiYSI6ImNra25jdDhweDE0ZXgyb29jeHRkaW10Z3AifQ.5sV_IKha4TaUpoOBt79H7g"
+      platform: null,
+      apikey: "JpZ5S5-PKxE9N_dzrEZROkWfEgqI6x50LAuMppjaRvI"
+      // You can get the API KEY from developer.here.com
     };
   },
-  mounted() {
-    mapboxgl.accessToken = this.accessToken;
-
-    new mapboxgl.Map({
-      container: "mapContainer",
-      style: "mapbox://styles/mapbox/streets-v11",
-      center: [-99.199675, 19.344684],
-      zoom: 15
+  async mounted() {
+    // Initialize the platform object:
+    const platform = new window.H.service.Platform({
+      apikey: this.apikey
     });
+    this.platform = platform;
+    this.initializeHereMap();
+  },
+  methods: {
+    initializeHereMap() {
+      // rendering map
+
+      const mapContainer = this.$refs.hereMap;
+      const H = window.H;
+      // Obtain the default map types from the platform object
+      var maptypes = this.platform.createDefaultLayers();
+
+      // Instantiate (and display) a map object:
+      var map = new H.Map(mapContainer, maptypes.vector.normal.map, {
+        zoom: 10,
+        center: this.center
+        // center object { lat: 40.730610, lng: -73.935242 }
+      });
+
+      addEventListener("resize", () => map.getViewPort().resize());
+
+      // add behavior control
+      new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+
+      // add UI
+      H.ui.UI.createDefault(map, maptypes);
+      // End rendering the initial map
+    }
   }
 };
 </script>
 
 <style scoped>
-.basemap {
-  width: 100%;
-  height: 100%;
+#map {
+  width: 60vw;
+  min-width: 360px;
+  text-align: center;
+  margin: 5% auto;
+  background-color: #ccc;
 }
 </style>
