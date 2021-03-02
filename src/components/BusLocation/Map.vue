@@ -1,67 +1,85 @@
 <template>
-  <div id="map">
-    <!--In the following div the HERE Map will render-->
-    <div id="mapContainer" style="height:600px;width:100%" ref="hereMap"></div>
-  </div>
+  <div ref="map-root" style="width: 100%; height: 100%"></div>
 </template>
 
 <script>
+import View from "ol/View";
+import Map from "ol/Map";
+import TileLayer from "ol/layer/Tile";
+import OSM from "ol/source/OSM";
+import VectorLayer from "ol/layer/Vector";
+import VectorSource from "ol/source/Vector";
+import GeoJSON from "ol/format/GeoJSON";
+
+import "ol/ol.css";
+
 export default {
-  name: "HereMap",
+  name: "MapContainer",
+  components: {},
   props: {
-    center: Object
-    // center object { lat: 40.730610, lng: -73.935242 }
+    geojson: Object
   },
-  data() {
-    return {
-      platform: null,
-      apikey: "JpZ5S5-PKxE9N_dzrEZROkWfEgqI6x50LAuMppjaRvI"
-      // You can get the API KEY from developer.here.com
-    };
-  },
-  async mounted() {
-    // Initialize the platform object:
-    const platform = new window.H.service.Platform({
-      apikey: this.apikey
+  data: () => ({
+    olMap: null,
+    vectorLayer: null,
+    selectedFeature: null
+  }),
+  mounted() {
+    this.vectorLayer = new VectorLayer({
+      source: new VectorSource({
+        features: []
+      })
     });
-    this.platform = platform;
-    this.initializeHereMap();
+
+    this.olMap = new Map({
+      target: this.$refs["map-root"],
+      layers: [
+        new TileLayer({
+          source: new OSM()
+        }),
+        this.vectorLayer
+      ],
+      view: new View({
+        zoom: 0,
+        center: [0, 0],
+        constrainResolution: true
+      })
+    });
+
+    this.olMap.on("pointermove", event => {
+      const hovered = this.olMap.forEachFeatureAtPixel(
+        event.pixel,
+        feature => feature
+      );
+      if (hovered !== this.selectedFeature) {
+        this.$set(this, "selectedFeature", hovered);
+      }
+    });
+
+    this.updateSource(this.geojson);
+  },
+  watch: {
+    geojson(value) {
+      this.updateSource(value);
+    },
+    selectedFeature(value) {
+      this.$emit("select", value);
+    }
   },
   methods: {
-    initializeHereMap() {
-      // rendering map
+    updateSource(geojson) {
+      const view = this.olMap.getView();
+      const source = this.vectorLayer.getSource();
 
-      const mapContainer = this.$refs.hereMap;
-      const H = window.H;
-      // Obtain the default map types from the platform object
-      var maptypes = this.platform.createDefaultLayers();
+      const features = new GeoJSON({
+        featureProjection: "EPSG:3857"
+      }).readFeatures(geojson);
 
-      // Instantiate (and display) a map object:
-      var map = new H.Map(mapContainer, maptypes.vector.normal.map, {
-        zoom: 10,
-        center: this.center
-        // center object { lat: 40.730610, lng: -73.935242 }
-      });
+      source.clear();
+      source.addFeatures(features);
 
-      addEventListener("resize", () => map.getViewPort().resize());
-
-      // add behavior control
-      new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
-
-      // add UI
-      H.ui.UI.createDefault(map, maptypes);
-      // End rendering the initial map
+      view.fit(source.getExtent());
     }
   }
 };
 </script>
-
-<style scoped>
-#map {
-  width: 60vw;
-  min-width: 360px;
-  text-align: center;
-  margin: 5% auto;
-  background-color: #ccc;
-}
-</style>
