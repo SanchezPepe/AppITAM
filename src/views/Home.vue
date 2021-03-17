@@ -20,8 +20,7 @@
               Contacto: wil@itam.mx
             </p>
             <p class="subheading">
-              Encargados del laboratorio: Jaime Limón Samperio y Emiliano
-              Sotomayor González
+              Encargados del laboratorio: José Sánchez A.
             </p>
           </v-card-text>
         </v-card>
@@ -43,10 +42,6 @@
             </p>
             <p class="subheading">
               Contacto: wil@itam.mx
-            </p>
-            <p class="subheading">
-              Encargados del laboratorio: Jaime Limón Samperio y Emiliano
-              Sotomayor González
             </p>
           </v-card-text>
         </v-card>
