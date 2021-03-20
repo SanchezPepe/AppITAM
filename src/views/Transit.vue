@@ -1,15 +1,15 @@
 <template>
   <v-container>
-    <Track />
+    <Map />
   </v-container>
 </template>
 
 <script>
-import Track from "../components/BusLocation/Tracking";
+import Map from "../components/BusLocation/Map";
 
 export default {
   components: {
-    Track
+    Map
   }
 };
 </script>

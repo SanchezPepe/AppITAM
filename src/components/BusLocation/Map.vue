@@ -1,84 +1,100 @@
 <template>
-  <div ref="map-root" style="width: 100%; height: 100%"></div>
+
+  <div style="height: 500px; width: 100%">
+    <div style="height: 200px; overflow: auto;">
+      <p>First marker is placed at {{ withPopup.lat }}, {{ withPopup.lng }}</p>
+      <p>Center is at {{ currentCenter }} and the zoom is: {{ currentZoom }}</p>
+      <button @click="showLongText">
+        Toggle long popup
+      </button>
+      <button @click="showMap = !showMap">
+        Toggle map
+      </button>
+    </div>
+    <l-map
+      v-if="showMap"
+      :zoom="zoom"
+      :center="center"
+      :options="mapOptions"
+      style="height: 80%"
+      @update:center="centerUpdate"
+      @update:zoom="zoomUpdate"
+    >
+      <l-tile-layer
+        :url="url"
+        :attribution="attribution"
+      />
+      <l-marker :lat-lng="withPopup">
+        <l-popup>
+          <div @click="innerClick">
+            I am a popup
+            <p v-show="showParagraph">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+              sed pretium nisl, ut sagittis sapien. Sed vel sollicitudin nisi.
+              Donec finibus semper metus id malesuada.
+            </p>
+          </div>
+        </l-popup>
+      </l-marker>
+      <l-marker :lat-lng="withTooltip">
+        <l-tooltip :options="{ permanent: true, interactive: true }">
+          <div @click="innerClick">
+            I am a tooltip
+            <p v-show="showParagraph">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+              sed pretium nisl, ut sagittis sapien. Sed vel sollicitudin nisi.
+              Donec finibus semper metus id malesuada.
+            </p>
+          </div>
+        </l-tooltip>
+      </l-marker>
+    </l-map>
+  </div>
 </template>
 
 <script>
-import View from "ol/View";
-import Map from "ol/Map";
-import TileLayer from "ol/layer/Tile";
-import OSM from "ol/source/OSM";
-import VectorLayer from "ol/layer/Vector";
-import VectorSource from "ol/source/Vector";
-import GeoJSON from "ol/format/GeoJSON";
-
-import "ol/ol.css";
+import { latLng } from "leaflet";
+import { LMap, LTileLayer, LMarker, LPopup, LTooltip } from "vue2-leaflet";
 
 export default {
-  name: "MapContainer",
-  components: {},
-  props: {
-    geojson: Object
+  name: "Example",
+  components: {
+    LMap,
+    LTileLayer,
+    LMarker,
+    LPopup,
+    LTooltip
   },
-  data: () => ({
-    olMap: null,
-    vectorLayer: null,
-    selectedFeature: null
-  }),
-  mounted() {
-    this.vectorLayer = new VectorLayer({
-      source: new VectorSource({
-        features: []
-      })
-    });
-
-    this.olMap = new Map({
-      target: this.$refs["map-root"],
-      layers: [
-        new TileLayer({
-          source: new OSM()
-        }),
-        this.vectorLayer
-      ],
-      view: new View({
-        zoom: 0,
-        center: [0, 0],
-        constrainResolution: true
-      })
-    });
-
-    this.olMap.on("pointermove", event => {
-      const hovered = this.olMap.forEachFeatureAtPixel(
-        event.pixel,
-        feature => feature
-      );
-      if (hovered !== this.selectedFeature) {
-        this.$set(this, "selectedFeature", hovered);
-      }
-    });
-
-    this.updateSource(this.geojson);
-  },
-  watch: {
-    geojson(value) {
-      this.updateSource(value);
-    },
-    selectedFeature(value) {
-      this.$emit("select", value);
-    }
+  data() {
+    return {
+      zoom: 13,
+      center: latLng(47.41322, -1.219482),
+      url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      attribution:
+        '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+      withPopup: latLng(47.41322, -1.219482),
+      withTooltip: latLng(47.41422, -1.250482),
+      currentZoom: 11.5,
+      currentCenter: latLng(47.41322, -1.219482),
+      showParagraph: false,
+      mapOptions: {
+        zoomSnap: 0.5
+      },
+      showMap: true
+    };
   },
   methods: {
-    updateSource(geojson) {
-      const view = this.olMap.getView();
-      const source = this.vectorLayer.getSource();
-
-      const features = new GeoJSON({
-        featureProjection: "EPSG:3857"
-      }).readFeatures(geojson);
-
-      source.clear();
-      source.addFeatures(features);
-
-      view.fit(source.getExtent());
+    zoomUpdate(zoom) {
+      this.currentZoom = zoom;
+    },
+    centerUpdate(center) {
+      this.currentCenter = center;
+    },
+    showLongText() {
+      this.showParagraph = !this.showParagraph;
+    },
+    innerClick() {
+      alert("Click!");
     }
   }
 };
