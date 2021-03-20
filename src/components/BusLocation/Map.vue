@@ -85,7 +85,7 @@ export default {
   computed: {
     connUrl: function() {
       if (this.dev) return "http://localhost:8080/";
-      else return "https://bus.itam.mx/";
+      else return "http://bus.itam.mx/";
     }
   },
   methods: {
