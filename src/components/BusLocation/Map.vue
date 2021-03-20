@@ -85,7 +85,7 @@ export default {
   computed: {
     connUrl: function() {
       if (this.dev) return "http://localhost:8080/";
-      else return "http://bus.itam.mx/";
+      else return "https://bus.itam.mx/";
     }
   },
   methods: {
@@ -112,14 +112,13 @@ export default {
           "servicioubica/servu.asmx/obtenUltimasCoordenadasRuta1Telcel?"
       )
       .then(response => {
+        // The response is malformed so we need to double parse the xml -> Log response.data for more context
         var parser = new DOMParser();
         let xmlData = parser.parseFromString(response.data, "text/html");
-        // The response is malformed so we need to double parse the xml -> Log response.data for more context
         xmlData = xmlData.getElementsByTagName("string")[0].textContent;
         xmlData = parser.parseFromString(xmlData, "text/html");
-        // Array to store the last 5 coordinates
-        this.busCoordinates = [{}, {}, {}, {}, {}];
 
+        this.busCoordinates = [{}, {}, {}, {}, {}];
         let tags = ["latitud", "longitud", "ruta", "locFecha", "fecha"];
         tags.forEach(tag => {
           let items = xmlData.getElementsByTagName(tag);
@@ -131,7 +130,7 @@ export default {
         var lat = this.busCoordinates[0].latitud;
         var lon = this.busCoordinates[0].longitud;
 
-        //Set the center to the last point
+        //Set the center to the most recent location
         this.center = latLng(lat, lon);
       });
   }
