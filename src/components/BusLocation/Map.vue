@@ -78,8 +78,15 @@ export default {
       mapOptions: {
         zoomSnap: 0.5
       },
-      showMap: true
+      showMap: true,
+      dev: false
     };
+  },
+  computed: {
+    connUrl: function() {
+      if (this.dev) return "http://localhost:8080/";
+      else return "http://bus.itam.mx/";
+    }
   },
   methods: {
     setCenter(center) {
@@ -101,7 +108,8 @@ export default {
   mounted() {
     axios
       .get(
-        "http://localhost:8080/servicioubica/servu.asmx/obtenUltimasCoordenadasRuta1Telcel?"
+        this.connUrl +
+          "servicioubica/servu.asmx/obtenUltimasCoordenadasRuta1Telcel?"
       )
       .then(response => {
         var parser = new DOMParser();
@@ -122,7 +130,7 @@ export default {
         console.log(this.busCoordinates);
         var lat = this.busCoordinates[0].latitud;
         var lon = this.busCoordinates[0].longitud;
-        
+
         //Set the center to the last point
         this.center = latLng(lat, lon);
       });
