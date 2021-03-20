@@ -85,7 +85,7 @@ export default {
   computed: {
     connUrl: function() {
       if (this.dev) return "http://localhost:8080/";
-      else return "http://bus.itam.mx";
+      else return "https://bus.itam.mx/";
     }
   },
   methods: {
@@ -131,7 +131,7 @@ export default {
     axios
       .get(
         this.connUrl +
-          "servicioubica/servu.asmx/obtenUltimasCoordenadasRuta1Telcel?"
+          "servicioubica/servu.asmx/obtenUltimasCoordenadasRuta1Telcel?/"
       )
       .then(response => this.getDataCoordinates(response.data));
   }
