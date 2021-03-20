@@ -1,5 +1,4 @@
 <template>
-
   <div style="height: 500px; width: 100%">
     <div style="height: 200px; overflow: auto;">
       <p>First marker is placed at {{ withPopup.lat }}, {{ withPopup.lng }}</p>
@@ -20,10 +19,7 @@
       @update:center="centerUpdate"
       @update:zoom="zoomUpdate"
     >
-      <l-tile-layer
-        :url="url"
-        :attribution="attribution"
-      />
+      <l-tile-layer :url="url" :attribution="attribution" />
       <l-marker :lat-lng="withPopup">
         <l-popup>
           <div @click="innerClick">
@@ -53,6 +49,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import { latLng } from "leaflet";
 import { LMap, LTileLayer, LMarker, LPopup, LTooltip } from "vue2-leaflet";
 
@@ -67,9 +64,10 @@ export default {
   },
   data() {
     return {
+      busCoordinates: null,
       zoom: 13,
       center: latLng(47.41322, -1.219482),
-      url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
       attribution:
         '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
       withPopup: latLng(47.41322, -1.219482),
@@ -84,6 +82,9 @@ export default {
     };
   },
   methods: {
+    setCenter(center) {
+      this.currentCenter = center;
+    },
     zoomUpdate(zoom) {
       this.currentZoom = zoom;
     },
@@ -96,6 +97,35 @@ export default {
     innerClick() {
       alert("Click!");
     }
+  },
+  mounted() {
+    axios
+      .get(
+        "http://localhost:8080/servicioubica/servu.asmx/obtenUltimasCoordenadasRuta1Telcel?"
+      )
+      .then(response => {
+        var parser = new DOMParser();
+        let xmlData = parser.parseFromString(response.data, "text/html");
+        // The response is malformed so we need to double parse the xml -> Log response.data for more context
+        xmlData = xmlData.getElementsByTagName("string")[0].textContent;
+        xmlData = parser.parseFromString(xmlData, "text/html");
+        // Array to store the last 5 coordinates
+        this.busCoordinates = [{}, {}, {}, {}, {}];
+
+        let tags = ["latitud", "longitud", "ruta", "locFecha", "fecha"];
+        tags.forEach(tag => {
+          let items = xmlData.getElementsByTagName(tag);
+          this.busCoordinates.map(
+            (r, item) => (r[tag] = items[item].textContent)
+          );
+        });
+        console.log(this.busCoordinates);
+        var lat = this.busCoordinates[0].latitud;
+        var lon = this.busCoordinates[0].longitud;
+        
+        //Set the center to the last point
+        this.center = latLng(lat, lon);
+      });
   }
 };
 </script>
