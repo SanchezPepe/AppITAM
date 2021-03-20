@@ -79,7 +79,7 @@ export default {
         zoomSnap: 0.5
       },
       showMap: true,
-      dev: true
+      dev: false
     };
   },
   computed: {
