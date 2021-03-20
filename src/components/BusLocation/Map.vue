@@ -79,13 +79,13 @@ export default {
         zoomSnap: 0.5
       },
       showMap: true,
-      dev: false
+      dev: true
     };
   },
   computed: {
     connUrl: function() {
       if (this.dev) return "http://localhost:8080/";
-      else return "https://bus.itam.mx/";
+      else return "http://bus.itam.mx/";
     }
   },
   methods: {
@@ -103,6 +103,28 @@ export default {
     },
     innerClick() {
       alert("Click!");
+    },
+    getDataCoordinates(data) {
+      // The response is malformed so we need to double parse the xml -> Log response.data for more context
+      var parser = new DOMParser();
+      let xmlData = parser.parseFromString(data, "text/html");
+      xmlData = xmlData.getElementsByTagName("string")[0].textContent;
+      xmlData = parser.parseFromString(xmlData, "text/html");
+
+      this.busCoordinates = [{}, {}, {}, {}, {}];
+      let tags = ["latitud", "longitud", "ruta", "locFecha", "fecha"];
+      tags.forEach(tag => {
+        let items = xmlData.getElementsByTagName(tag);
+        this.busCoordinates.map(
+          (r, item) => (r[tag] = items[item].textContent)
+        );
+      });
+      console.log(this.busCoordinates);
+      var lat = this.busCoordinates[0].latitud;
+      var lon = this.busCoordinates[0].longitud;
+
+      //Set the center to the most recent location
+      this.center = latLng(lat, lon);
     }
   },
   mounted() {
@@ -111,28 +133,7 @@ export default {
         this.connUrl +
           "servicioubica/servu.asmx/obtenUltimasCoordenadasRuta1Telcel?"
       )
-      .then(response => {
-        // The response is malformed so we need to double parse the xml -> Log response.data for more context
-        var parser = new DOMParser();
-        let xmlData = parser.parseFromString(response.data, "text/html");
-        xmlData = xmlData.getElementsByTagName("string")[0].textContent;
-        xmlData = parser.parseFromString(xmlData, "text/html");
-
-        this.busCoordinates = [{}, {}, {}, {}, {}];
-        let tags = ["latitud", "longitud", "ruta", "locFecha", "fecha"];
-        tags.forEach(tag => {
-          let items = xmlData.getElementsByTagName(tag);
-          this.busCoordinates.map(
-            (r, item) => (r[tag] = items[item].textContent)
-          );
-        });
-        console.log(this.busCoordinates);
-        var lat = this.busCoordinates[0].latitud;
-        var lon = this.busCoordinates[0].longitud;
-
-        //Set the center to the most recent location
-        this.center = latLng(lat, lon);
-      });
+      .then(response => this.getDataCoordinates(response.data));
   }
 };
 </script>
