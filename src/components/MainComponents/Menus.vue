@@ -1,6 +1,7 @@
 <template>
   <div>
     <v-menu
+      style="z-index:99999;"
       open-on-hover
       bottom
       offset-y
@@ -11,7 +12,6 @@
     >
       <template v-slot:activator="{ on, attrs }">
         <v-btn text dark v-bind="attrs" v-on="on" @click="sendTo(item)">
-          <!-- <v-icon> {{ item.icon }}</v-icon> -->
           {{ item.title }}
         </v-btn>
       </template>
@@ -35,8 +35,6 @@ export default {
   data() {
     return {
       title: "",
-      drawer: true,
-      clipped: true,
       menuItems: [
         {
           icon: "mdi-home",
