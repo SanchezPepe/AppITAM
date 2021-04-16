@@ -8,9 +8,13 @@
       @update:center="centerUpdate"
       @update:zoom="zoomUpdate"
     >
-      <l-tile-layer :url="url" :attribution="attribution" />
+      <l-tile-layer
+        :options="{ tileSize: 512, zoomOffset: -1 }"
+        :url="url"
+        :attribution="attribution"
+      />
 
-      <l-marker :lat-lng="[19.34508, -99.200004]" :icon="icon"> </l-marker>
+      <l-marker :lat-lng="center" :icon="icon"> </l-marker>
     </l-map>
   </div>
 </template>
@@ -30,47 +34,33 @@ export default {
   },
   data() {
     return {
-      customIcon,
       dev: false,
+      customIcon,
       icon: icon({
         iconUrl: customIcon,
-        iconSize: [80, 80]
+        iconSize: [70, 70]
       }),
-      busCoordinates: null,
-      zoom: 16,
+      zoom: 16.5,
       center: latLng(19.34508, -99.200004),
-      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      busCoordinates: null,
+      url:
+        "https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiampzYW5jaGV6IiwiYSI6ImNra25jdDhweDE0ZXgyb29jeHRkaW10Z3AifQ.5sV_IKha4TaUpoOBt79H7g",
       attribution:
-        '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-      mapOptions: {
-        zoomSnap: 0.5
-      }
+        '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     };
   },
   computed: {
     connUrl: function() {
       if (this.dev) return "http://localhost:8080/";
       else return "http://bus.itam.mx/";
-    },
-    dynamicSize() {
-      return [this.iconSize, this.iconSize * 1.15];
-    },
-    dynamicAnchor() {
-      return [this.iconSize / 2, this.iconSize * 1.15];
     }
   },
   methods: {
-    setCenter(center) {
-      this.currentCenter = center;
-    },
     zoomUpdate(zoom) {
-      this.currentZoom = zoom;
+      this.zoom = zoom;
     },
     centerUpdate(center) {
-      this.currentCenter = center;
-    },
-    innerClick() {
-      alert("Click!");
+      this.center = center;
     },
     getDataCoordinates(data) {
       // The response is malformed so we need to double parse the xml -> Log response.data for more context
