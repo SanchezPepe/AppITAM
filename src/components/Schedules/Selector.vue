@@ -2,12 +2,10 @@
   <v-container>
     <v-container>
       <strong>
-        <p>
-          Se muestran horarios para el semestre PRIMAVERA 2021
-        </p>
+        Se muestran horarios para el semestre PRIMAVERA 2021
       </strong>
-      <v-row>
-        <v-col cols="10">
+      <v-row style="margin-top: 0px">
+        <v-col cols="9">
           <v-autocomplete
             :items="items"
             :error="error"
@@ -22,7 +20,7 @@
           ></v-autocomplete>
         </v-col>
 
-        <v-col cols="2" align="end">
+        <v-col cols="3" align="end">
           <v-tooltip bottom>
             <template v-slot:activator="{ on, attrs }">
               <v-btn
@@ -210,6 +208,11 @@ export default {
   props: {
     courses: Object
   },
+  components: {
+    GroupCard,
+    Calendar,
+    Checkout
+  },
   beforeMount() {
     this.items = Object.keys(this.courses);
   },
@@ -297,13 +300,12 @@ export default {
         alert("Hubo un error, revisa que tu archivo sea correcto");
       }
     }
-  },
-  components: {
-    GroupCard,
-    Calendar,
-    Checkout
   }
 };
 </script>
 
-<style></style>
+<style>
+.v-chip--select {
+  margin: 3px !important;
+}
+</style>

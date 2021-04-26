@@ -144,27 +144,8 @@ export default {
           ]
         },
         {
-          icon: "mdi-soccer-field",
-          title: "Deportes",
-          subitems: [
-            { title: "Rugby", to: "/deportes/rugby" },
-            { title: "Rugby Fem", to: "/deportes/rugbyfem" },
-            { title: "Cheerleading", to: "/deportes/cheerleading" },
-            { title: "Football", to: "/deportes/football" },
-            { title: "Frisbee", to: "/deportes/frisbee" },
-            { title: "Basketball Fem", to: "/deportes/basketballfem" }
-          ]
-        },
-        {
-          title: "OE's",
-          subitems: [
-            { title: "Ajedrez", to: "/oes/ajedrez" },
-            { title: "Verde ITAM", to: "/oes/verdeitam" }
-          ]
-        },
-        {
           icon: "mdi-link",
-          title: "Links importantes",
+          title: "Sitios ITAM",
           subitems: [
             { title: "ITAM", href: "https://www.itam.mx/" },
             {

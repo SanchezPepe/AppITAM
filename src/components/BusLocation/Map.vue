@@ -14,7 +14,11 @@
         :attribution="attribution"
       />
 
-      <l-marker :lat-lng="center" :icon="icon">
+      <l-marker :lat-lng="itamLocation" :icon="itam">
+
+      </l-marker>
+
+      <l-marker :lat-lng="center" :icon="bus">
         <l-tooltip :options="tooltipOptions">
           <strong>
             Barranca del Muerto
@@ -29,7 +33,8 @@
 import axios from "axios";
 import { latLng, icon, point } from "leaflet";
 import { LMap, LTileLayer, LMarker, LTooltip } from "vue2-leaflet";
-import customIcon from "../../assets/chems.png";
+import chems from "../../assets/chems.png";
+import itamIcon from "../../assets/plazaroja.png";
 
 export default {
   name: "Example",
@@ -42,13 +47,19 @@ export default {
   data() {
     return {
       dev: false,
-      customIcon,
-      icon: icon({
-        iconUrl: customIcon,
+      chems,
+      itamIcon,
+      bus: icon({
+        iconUrl: chems,
         iconSize: [70, 70]
       }),
+      itam: icon({
+        iconUrl: itamIcon,
+        iconSize: [345/3, 251/3]
+      }),
       zoom: 16.5,
-      center: latLng(19.34508, -99.200004),
+      center: latLng(19.361510, -99.189365),
+      itamLocation: latLng(19.344757, -99.199923),
       busCoordinates: null,
       tooltipOptions: { permanent: true, opacity: 1, offset: point(35, -10) },
       url:

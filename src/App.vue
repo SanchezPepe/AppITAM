@@ -7,7 +7,7 @@
         flat
         dark
         color="#006853"
-        src="https://static.wixstatic.com/media/d5807a_ae71547eb33644278e4ff4aebd9f4b59~mv2_d_2800_1615_s_2.jpg/v1/fill/w_1600,h_922,al_c,q_90/file.jpg"
+        src="./assets/plazaroja.jpg"
         fade-img-on-scroll
         shrink-on-scroll
         elevate-on-scroll
