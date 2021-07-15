@@ -32,7 +32,6 @@ npm run build
 npm run lint
 ```
 
-
 ## Contacto
 * WIL ITAM - wil@itam.mx
 * Pepe Sánchez - sanchezpepe97@gmail.com
