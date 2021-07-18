@@ -2,7 +2,7 @@
   <v-container>
     <v-container>
       <strong>
-        Se muestran horarios para el semestre PRIMAVERA 2021
+        Se muestran horarios para el semestre OTOÑO 2021
       </strong>
       <v-row style="margin-top: 0px">
         <v-col cols="9">

@@ -43,7 +43,7 @@ export default {
     axios
       .get(
         this.connUrl +
-          "v0/b/appitam.appspot.com/o/courses.json?alt=media&token=fdf0432b-6e77-4bc6-b09e-5235f55f4520"
+          "v0/b/appitam.appspot.com/o/FALL-2021.json?alt=media&token=53226aae-4d6d-4b67-9ab1-0998e88ee726"
       )
       .then(
         response => (
