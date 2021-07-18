@@ -3,7 +3,7 @@ Desarrollado por el Laboratorio de Desarollo Web del ITAM - WIL
 
 ## Créditos
 * Idea original App ITAM - Emiliano Sotomayor, Jaime Limón
-* Creador de horarios - Consejo Expande 2018 - Pedro Lanzargorta, Fernando Ruiloba
+* Creador de horarios - Consejo Expande 2017 - Pedro Lanzargorta, Fernando Ruiloba
 * Scraper en Python - Diego García
 * Desarrollo - José Sánchez
 
