@@ -5,7 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    dev: true,
+    dev: false,
     loading: false,
     window: {
       width: 0,

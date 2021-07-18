@@ -57,7 +57,6 @@
               </v-list>
             </v-menu>
           </div>
-          <v-spacer></v-spacer>
         </v-container>
       </v-app-bar>
     </v-card>
@@ -276,5 +275,50 @@ export default {
 <style>
 #logo {
   color: white;
+}
+
+.bm-burger-bars {
+  background-color: #ffffff;
+}
+
+.bm-burger-button {
+  position: fixed;
+  width: 36px;
+  height: 30px;
+  left: 36px;
+  top: 20px;
+  cursor: pointer;
+}
+
+.line-style {
+  position: absolute;
+  height: 7%;
+  left: 0;
+  right: 0;
+}
+.TreeNavigation {
+  font-size: 17px;
+}
+.bm-cross {
+  margin: 5px;
+}
+
+.NavigationLevel__children {
+  padding-left: 15px !important;
+}
+
+.NavigationLevel__parent {
+  font-weight: 600;
+}
+
+.NavigationToggle__icon {
+  border-color: #ffffff !important;
+}
+
+.NavigationItem,
+.NavigationItem__router-link,
+.NavigationItem__external-link {
+  color: white !important;
+  text-decoration: none;
 }
 </style>
