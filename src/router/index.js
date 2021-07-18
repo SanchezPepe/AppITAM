@@ -11,6 +11,11 @@ const routes = [
     component: Home
   },
   {
+    path: "/home",
+    name: "Home",
+    component: Home
+  },
+  {
     path: "/calendar",
     name: "Calendar",
     component: () => import("../views/ScheduleCreator.vue")

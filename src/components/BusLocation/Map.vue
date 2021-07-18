@@ -3,7 +3,6 @@
     <l-map
       :zoom="zoom"
       :center="center"
-      :options="mapOptions"
       style="height: 80%"
       @update:center="centerUpdate"
       @update:zoom="zoomUpdate"
@@ -14,9 +13,7 @@
         :attribution="attribution"
       />
 
-      <l-marker :lat-lng="itamLocation" :icon="itam">
-
-      </l-marker>
+      <l-marker :lat-lng="itamLocation" :icon="itam"> </l-marker>
 
       <l-marker :lat-lng="center" :icon="bus">
         <l-tooltip :options="tooltipOptions">
@@ -55,10 +52,10 @@ export default {
       }),
       itam: icon({
         iconUrl: itamIcon,
-        iconSize: [345/3, 251/3]
+        iconSize: [345 / 3, 251 / 3]
       }),
       zoom: 16.5,
-      center: latLng(19.361510, -99.189365),
+      center: latLng(19.36151, -99.189365),
       itamLocation: latLng(19.344757, -99.199923),
       busCoordinates: null,
       tooltipOptions: { permanent: true, opacity: 1, offset: point(35, -10) },

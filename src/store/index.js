@@ -25,7 +25,7 @@ export default new Vuex.Store({
     updateWindow(state, newData) {
       state.window.width = newData[0];
       state.window.height = newData[1];
-    },
+    }
   },
   actions: {
     toggleLoading(context) {
@@ -33,6 +33,6 @@ export default new Vuex.Store({
     },
     updateWindow(context, data) {
       context.commit("updateWindow", data);
-    },
-  },
+    }
+  }
 });

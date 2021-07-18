@@ -6,6 +6,9 @@ import vuetify from "./plugins/vuetify";
 import "leaflet/dist/leaflet.css";
 import axios from "axios";
 import VueAxios from "vue-axios";
+import VueTreeNavigation from "vue-tree-navigation";
+
+Vue.use(VueTreeNavigation);
 
 Vue.use(VueAxios, axios);
 Vue.config.productionTip = false;
