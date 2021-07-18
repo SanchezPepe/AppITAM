@@ -67,6 +67,12 @@
         </v-card-title>
       </v-card>
     </v-footer>
+
+    <v-overlay :value="loading" style="z-index:9999;">
+      <v-progress-circular indeterminate size="150">
+        <h2>Cargando</h2>
+      </v-progress-circular>
+    </v-overlay>
   </v-app>
 </template>
 
@@ -75,6 +81,14 @@ import Menus from "./components/Menus";
 
 export default {
   name: "App",
+  computed: {
+    window() {
+      return this.$store.state.window;
+    },
+    loading() {
+      return this.$store.state.loading;
+    }
+  },
   components: {
     Menus
   },

@@ -169,6 +169,11 @@ export default {
       ]
     };
   },
+  computed: {
+    menu: function() {
+      return this.window.width < 700;
+    }
+  },
   methods: {
     sendTo(item) {
       if (item.href) {

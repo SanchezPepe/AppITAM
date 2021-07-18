@@ -32,19 +32,11 @@
                 color="success"
                 class="mr-4"
                 rounded
-                :loading="isSelecting"
                 @click="addCourses"
               >
                 <v-icon>
                   mdi-magnify
                 </v-icon>
-                <input
-                  ref="uploader"
-                  class="d-none"
-                  type="file"
-                  accept="application/json"
-                  @change="onFileChanged"
-                />
               </v-btn>
             </template>
             <span>Buscar horarios</span>

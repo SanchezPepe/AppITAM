@@ -26,13 +26,11 @@ export default {
     loading: false,
     courses: null,
     selectedGroups: null,
-    tab: null,
-    dev: false
+    tab: null
   }),
   computed: {
-    connUrl: function() {
-      if (this.dev) return "http://localhost:8080/";
-      else return "https://firebasestorage.googleapis.com/";
+    connUrl() {
+      return this.$store.getters.connUrl;
     }
   },
   components: {
