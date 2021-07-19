@@ -7,11 +7,18 @@ import "leaflet/dist/leaflet.css";
 import axios from "axios";
 import VueAxios from "vue-axios";
 import VueTreeNavigation from "vue-tree-navigation";
+import VueAnalytics from "vue-analytics";
 
 Vue.use(VueTreeNavigation);
 
 Vue.use(VueAxios, axios);
 Vue.config.productionTip = false;
+
+// Configuration VueAnalytics
+Vue.use(VueAnalytics, {
+  id: "258261857",
+  router
+});
 
 new Vue({
   router,
