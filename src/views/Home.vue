@@ -18,8 +18,8 @@
               ITAM o escríbenos a wil@itam.mx
             </p>
             <p class="subheading black--text">
-              El código de la aplicación abierto. Si quieres contribuir puedes
-              hacer un fork del
+              El código de la aplicación es abierto. Si quieres contribuir
+              puedes hacer un fork del
               <a href="https://github.com/SanchezPepe/AppITAM" target="_blank">
                 repositorio</a
               >

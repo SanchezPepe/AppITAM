@@ -1,9 +1,9 @@
 <template>
-  <div style="height: 500px; width: 100%">
+  <div style="height: 100%; width: 100%">
     <l-map
       :zoom="zoom"
       :center="center"
-      style="height: 80%"
+      style="height: 100%"
       @update:center="centerUpdate"
       @update:zoom="zoomUpdate"
     >
@@ -15,7 +15,7 @@
 
       <l-marker :lat-lng="itamLocation" :icon="itam"> </l-marker>
 
-      <l-marker :lat-lng="center" :icon="bus">
+      <l-marker :lat-lng="barranca" :icon="bus">
         <l-tooltip :options="tooltipOptions">
           <strong>
             Barranca del Muerto
@@ -54,8 +54,9 @@ export default {
         iconUrl: itamIcon,
         iconSize: [345 / 3, 251 / 3]
       }),
-      zoom: 16.5,
-      center: latLng(19.36151, -99.189365),
+      zoom: 15,
+      center: latLng(19.352327, -99.194705),
+      barranca: latLng(19.36151, -99.189365),
       itamLocation: latLng(19.344757, -99.199923),
       busCoordinates: null,
       tooltipOptions: { permanent: true, opacity: 1, offset: point(35, -10) },
@@ -66,6 +67,9 @@ export default {
     };
   },
   computed: {
+    window() {
+      return this.$store.state.window;
+    },
     connUrl: function() {
       if (this.dev) return "http://localhost:8080/";
       else return "http://bus.itam.mx/";
