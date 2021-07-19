@@ -19,6 +19,13 @@
               <v-icon>
                 mdi-upload
               </v-icon>
+              <input
+                ref="uploader"
+                class="d-none"
+                type="file"
+                accept="application/json"
+                @change="onFileChanged"
+              />
             </v-btn>
           </template>
           <span>Cargar horario</span>
@@ -58,21 +65,50 @@
         </v-tooltip>
       </v-app-bar>
 
-      <v-navigation-drawer v-model="drawer" absolute bottom temporary right>
+      <v-navigation-drawer
+        v-model="drawer"
+        absolute
+        floating
+        temporary
+        right
+        height="40%"
+      >
         <v-list nav dense>
-          <v-btn block depressed color="error" @click.stop="drawer = !drawer">
-            Cerrar
-          </v-btn>
-          <v-list-item-group
-            v-model="group"
-            active-class="deep-purple--text text--accent-4"
-          >
-            <v-list-item v-for="career in syllabuses" :key="career.name">
-              <v-list-item-content>
-                <v-list-item-title>{{ career.name }}</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list-item-group>
+          <v-row class="ma-1" align="right">
+            <v-spacer></v-spacer>
+            <v-btn
+              x-small
+              depressed
+              fab
+              color="error"
+              @click.stop="drawer = !drawer"
+            >
+              <v-icon>
+                mdi-close
+              </v-icon>
+            </v-btn>
+          </v-row>
+          <v-row>
+            <v-list dense nav>
+              <v-list-item v-for="career in syllabuses" :key="career.name" link>
+                <v-list-item-icon>
+                  <v-icon>{{ career.icon }}</v-icon>
+                </v-list-item-icon>
+
+                <v-list-item-content>
+                  <v-list-item-title>
+                    <a
+                      :href="career.external"
+                      target="_blank"
+                      style="text-decoration: none"
+                    >
+                      {{ career.name }}
+                    </a>
+                  </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+          </v-row>
         </v-list>
       </v-navigation-drawer>
 
@@ -87,6 +123,7 @@
                 outlined
                 multiple
                 chips
+                dense
                 deletable-chips
                 small-chips
                 label="Materias"
@@ -206,71 +243,85 @@ export default {
     syllabuses: [
       {
         name: "Actuaría",
+        icon: "mdi-bank",
         external:
           "https://actuaria.itam.mx/sites/default/files/programas/planes/plan-de-estudios-de-la-licenciatura-en-actuaria-del-ITAM.pdf"
       },
       {
         name: "Administración",
+        icon: "mdi-table-large",
         external:
           "https://administracion.itam.mx/sites/default/files/programas/planes/plan-de-estudios-de-la-licenciatura-en-administracion-del-ITAM.pdf"
       },
       {
         name: "Ciencia de Datos",
+        icon: "mdi-chart-pie",
         external:
           "https://daaem.itam.mx/sites/default/files/programas/planes/plan_ciencia_datos.pdf"
       },
       {
         name: "Ciencia Política",
+        icon: "mdi-briefcase",
         external:
           "https://politica.itam.mx/sites/default/files/programas/planes/plan-de-estudios-de-la-licenciatura-en-ciencia-politica-del-ITAM.pdf"
       },
       {
         name: "Contaduría",
+        icon: "mdi-deskphone",
         external:
           "https://contaduria.itam.mx/sites/default/files/programas/planes/plan-de-estudios-de-la-licenciatura-en-contaduria-publica-y-estrategia-financiera-del-ITAM.pdf"
       },
       {
         name: "Derecho",
+        icon: "mdi-gavel",
         external:
           "http://daedcs.itam.mx/sites/default/files/programas/planes/plan_derecho.pdf"
       },
       {
         name: "Dirección Financiera",
+        icon: "mdi-chart-areaspline",
         external:
           "https://direccionfinanciera.itam.mx/sites/default/files/programas/planes/plan-de-estudios-de-la-licenciatura-en-direccion-financiera-del-ITAM.pdf"
       },
       {
         name: "Economía",
+        icon: "mdi-cash-100",
         external:
           "https://economia.itam.mx/sites/default/files/programas/planes/plan-de-estudios-de-la-licenciatura-en-economia-del-ITAM.pdf"
       },
       {
         name: "Matemáticas Aplicadas",
+        icon: "mdi-math-integral-box",
         external:
           "https://matematicas.itam.mx/sites/default/files/programas/planes/plan-de-estudios-de-la-licenciatura-en-matematicas-aplicadas-del-ITAM.pdf"
       },
       {
         name: "Relaciones Internacionales",
+        icon: "mdi-flag",
         external:
           "https://relacionesinternacionales.itam.mx/sites/default/files/programas/planes/plan-de-estudios-de-la-licenciatura-en-relaciones-internacionales-del-ITAM.pdf"
       },
       {
         name: "Ing. Computación",
+        icon: "mdi-desktop-tower-monitor",
         external:
           "https://dai.itam.mx/sites/default/files/programas/planes/plan_ing_computacion.pdf"
       },
       {
         name: "Ing. Industrial",
+        icon: "mdi-factory",
         external:
           "https://dai.itam.mx/sites/default/files/programas/planes/plan_ing_industrial.pdf"
       },
       {
         name: "Ing. Mecatrónica",
+        icon: "mdi-robot-happy",
         external:
           "https://mecatronica.itam.mx/sites/default/files/programas/planes/plan-de-estudios-de-la-ingenieria-en-mecatronica-del-ITAM.pdf"
       },
       {
         name: "Ing. Negocios",
+        icon: "mdi-store",
         external:
           "https://ingnegocios.itam.mx/sites/default/files/programas/planes/plan-de-estudios-de-la-ingenieria-en-negocios-del-ITAM.pdf"
       }
@@ -378,5 +429,9 @@ export default {
 <style>
 .v-chip--select {
   margin: 3px !important;
+}
+
+.v-list-item__icon {
+  margin-inline: 10px !important;
 }
 </style>
