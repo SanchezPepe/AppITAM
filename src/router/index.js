@@ -16,13 +16,13 @@ const routes = [
     component: Home
   },
   {
-    path: "/calendar",
-    name: "Calendar",
+    path: "/planner",
+    name: "Planner",
     component: () => import("../views/ScheduleCreator.vue")
   },
   {
-    path: "/transit",
-    name: "transit",
+    path: "/shuttle",
+    name: "Shuttle",
     component: () => import("../views/Transit.vue")
   }
 ];

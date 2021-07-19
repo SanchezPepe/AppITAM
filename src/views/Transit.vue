@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-responsive :min-height="window.height * .70">
+    <v-responsive :min-height="window.height * 0.7">
       <v-row class="fill-height">
         <v-col cols="6">
           <v-tabs v-model="tabs" fixed-tabs>

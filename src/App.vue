@@ -113,12 +113,12 @@ export default {
         {
           icon: "mdi-table-clock",
           name: "Horarios",
-          path: "/calendar"
+          path: "/planner"
         },
         {
           icon: "mdi-bus-multiple",
           name: "Transporte",
-          path: "/transit"
+          path: "/shuttle"
         },
         {
           icon: "mdi-calendar",
