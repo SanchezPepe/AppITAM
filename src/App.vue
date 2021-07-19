@@ -133,6 +133,11 @@ export default {
               name: "Pagos: 2021",
               external:
                 "http://escolar.itam.mx/servicios_escolares/calendarios/calescpagos2021.gif"
+            },
+            {
+              name: "Inscripción: 2021",
+              external:
+                "http://escolar.itam.mx/servicios_escolares/Calendario_otono_2021.pdf"
             }
           ]
         },
@@ -147,6 +152,10 @@ export default {
             },
 
             { name: "Comunidad ITAM", external: "https://comunidad.itam.mx" },
+            {
+              name: "Servicios y pagos",
+              external: "https://www.itam.mx/es/1/paginas/servicios-y-pagos"
+            },
             {
               name: "Servicios Personalizados",
               external: "https://serviciosweb.itam.mx/EDSUP/twbkwbis.P_WWWLogin"
@@ -197,6 +206,17 @@ export default {
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+
+html,
+body {
+  font-family: "Lato", sans-serif;
+}
+
+#app {
+  font-family: "Lato", sans-serif;
+}
+
 #logo {
   color: white;
 }

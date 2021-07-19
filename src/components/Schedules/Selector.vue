@@ -139,7 +139,7 @@
                     small
                     v-bind="attrs"
                     v-on="on"
-                    color="success"
+                    color="teal darken-3"
                     class="mr-4"
                     rounded
                     @click="addCourses"
